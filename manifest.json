@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "Old School YouTube",
+  "version": "1.0",
+
+  "description": "Removes Shorts and Movies from YouTube homepage to make it feel more like its back to 2010",
+
+  "icons": {
+    "48": "icons/appico.png"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["oldSchoolYouTube.js"]
+    }
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "OldSchoolYoutube@addon.com"
+    }
+  }
+}
