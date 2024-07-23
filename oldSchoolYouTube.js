@@ -1,29 +1,20 @@
 console.log(`Reverting UI back to YouTube from good old days <3`)
-console.log(`Its 2010 again baby!!!!!!`)
+console.log(`Its 2010 again baby!`)
 
-setTimeout(() => {
-  const element = document.getElementById('dismissible')
+function hideShorts() {
+  const allElements = document.querySelectorAll('*')
+  const shortsElements = Array.from(allElements).filter((element) => element.id === 'dismissible')
 
-  if (element) {
-    console.log(`Found the element with id 'dismissible'`)
-    console.log(`The element is:`, element)
-    element.style.display = 'none'
-    element.setAttribute('style', 'display: none !important;')
+  if (shortsElements.length > 0) {
+    console.log(`Found ${shortsElements.length} elements with id 'dismissible'`)
+    shortsElements.forEach((shorts) => {
+      console.log(`The Shorts element is:`, shorts)
+      shorts.style.display = 'none'
+      shorts.setAttribute('style', 'display: none !important;')
+    })
   } else {
-    console.log(`Element with id 'dismissible' not found`)
+    console.log(`No elements with id 'dismissible' found`)
   }
-}, 3000)
+}
 
-// const element = document.getElementById('dismissible')
-
-// if (element) {
-//   console.log(`Found the element with id 'dismissible'`)
-//   console.log(`the element is:`, element)
-//   element.style.display = 'none'
-// }
-
-// const elementsWithSameId = document.querySelectorAll('[id="dismissible"]')
-
-// elementsWithSameId.forEach((element) => {
-//   element.style.display = 'none'
-// })
+setTimeout(hideShorts, 3000)
