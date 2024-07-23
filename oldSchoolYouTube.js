@@ -1,20 +1,24 @@
-console.log(`Reverting UI back to YouTube from good old days <3`)
-console.log(`Its 2010 again baby!`)
+console.log(`[Old School YouTube] Attempting to revert UI back to YouTube from good old days...`)
 
 function hideShorts() {
   const allElements = document.querySelectorAll('*')
-  const shortsElements = Array.from(allElements).filter((element) => element.id === 'dismissible')
+  const shortsElements = Array.from(allElements).filter((element) => element.id === 'dismissible' && element.classList.contains('ytd-rich-shelf-renderer'))
 
   if (shortsElements.length > 0) {
-    console.log(`Found ${shortsElements.length} elements with id 'dismissible'`)
+    console.log(`[Old School YouTube] Disabling Shorts...`)
     shortsElements.forEach((shorts) => {
-      console.log(`The Shorts element is:`, shorts)
       shorts.style.display = 'none'
-      shorts.setAttribute('style', 'display: none !important;')
     })
+    console.log(`[Old School YouTube] Shorts disabled!`)
+    console.log(`[Old School YouTube] Welcome back to early YouTube days!`)
   } else {
-    console.log(`No elements with id 'dismissible' found`)
+    console.log(`[Old School YouTube] Error! Shorts ont found.`)
   }
 }
 
-setTimeout(hideShorts, 3000)
+const intervalId = setInterval(() => {
+  if (document.querySelector('#dismissible.ytd-rich-shelf-renderer')) {
+    hideShorts()
+    clearInterval(intervalId)
+  }
+}, 100)
