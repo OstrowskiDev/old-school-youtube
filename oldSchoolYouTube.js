@@ -8,6 +8,10 @@ function hideUnwantedContent() {
   console.log(`[Old School YouTube] Welcome back to early YouTube days!`)
 }
 
+function isValidYouTubeUrl(url) {
+  return url.hostname === 'www.youtube.com' && (url.pathname === '/' || url.pathname.startsWith('/?'))
+}
+
 const intervalId = setInterval(() => {
   if (document.querySelector('#dismissible.ytd-rich-shelf-renderer')) {
     hideUnwantedContent()
@@ -15,20 +19,18 @@ const intervalId = setInterval(() => {
   }
 }, 100)
 
-let lastUrl = location.href
+let lastUrl = new URL(location.href)
 
 new MutationObserver(() => {
-  const url = location.href
-  if (url !== lastUrl) {
+  const url = new URL(location.href)
+  if (url.href !== lastUrl.href) {
     lastUrl = url
-    if (url === 'https://www.youtube.com/' || url.startsWith('https://www.youtube.com/?')) {
+    if (isValidYouTubeUrl(url)) {
       console.log(`[Old School YouTube] Url changed, scanning for unwanted content...`)
       hideUnwantedContent()
     }
   }
 }).observe(document, { subtree: true, childList: true })
-
-//!!!! need to add ulr sanitization!!!!
 
 function disableShorts(allElements) {
   const shortsElements = Array.from(allElements).filter((element) => element.id === 'dismissible' && element.classList.contains('ytd-rich-shelf-renderer'))
