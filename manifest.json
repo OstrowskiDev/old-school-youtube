@@ -6,7 +6,7 @@
   "description": "Removes Shorts and Movies from YouTube homepage to make it feel more like its back to 2010",
 
   "icons": {
-    "48": "icons/appico.png"
+    "48": "icons/appico.svg"
   },
   
   "content_scripts": [
