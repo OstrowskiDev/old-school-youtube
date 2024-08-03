@@ -12,12 +12,17 @@ function isValidYouTubeUrl(url) {
   return url.hostname === 'www.youtube.com' && (url.pathname === '/' || url.pathname.startsWith('/?'))
 }
 
-const intervalId = setInterval(() => {
-  if (document.querySelector('#dismissible.ytd-rich-shelf-renderer')) {
-    hideUnwantedContent()
-    clearInterval(intervalId)
-  }
-}, 500)
+function hideContentOnLoad() {
+  const intervalId = setInterval(() => {
+    if (document.querySelector('#dismissible.ytd-rich-shelf-renderer')) {
+      console.log('[Old School YouTube]', document.querySelector('#dismissible.ytd-rich-shelf-renderer'))
+      hideUnwantedContent()
+      clearInterval(intervalId)
+    }
+  }, 500)
+}
+
+hideContentOnLoad()
 
 let lastUrl = new URL(location.href)
 
@@ -27,7 +32,8 @@ new MutationObserver(() => {
     lastUrl = url
     if (isValidYouTubeUrl(url)) {
       console.log(`[Old School YouTube] Url changed, scanning for unwanted content...`)
-      hideUnwantedContent()
+      setTimeout(hideContentOnLoad, 1000)
+      // hideContentOnLoad()
     }
   }
 }).observe(document, { subtree: true, childList: true })
