@@ -17,7 +17,7 @@ const intervalId = setInterval(() => {
     hideUnwantedContent()
     clearInterval(intervalId)
   }
-}, 100)
+}, 500)
 
 let lastUrl = new URL(location.href)
 
