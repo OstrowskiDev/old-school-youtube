@@ -33,10 +33,38 @@ new MutationObserver(() => {
     if (isValidYouTubeUrl(url)) {
       console.log(`[Old School YouTube] Url changed, scanning for unwanted content...`)
       setTimeout(hideContentOnLoad, 1000)
-      // hideContentOnLoad()
     }
   }
 }).observe(document, { subtree: true, childList: true })
+
+// function onElementVisible(selector, callback) {
+//   const element = document.querySelector(selector)
+//   if (element) {
+//     const observer = new IntersectionObserver((entries, obs) => {
+//       entries.forEach((entry) => {
+//         // check if the element is visible
+//         if (entry.isIntersecting) {
+//           callback(entry.target)
+//           obs.disconnect() // stop observing the element
+//         }
+//       })
+//     })
+//     observer.observe(element)
+//   }
+// }
+
+// const mutationObserver = new MutationObserver((mutations) => {
+//   mutations.forEach((mutation) => {
+//     if (mutation.type === 'childList') {
+//       onElementVisible('#dismissible.ytd-rich-shelf-renderer', (element) => {
+//         console.log('[Old School YouTube] Element visible, executing code...')
+//         hideContentOnLoad()
+//       })
+//     }
+//   })
+// })
+
+// mutationObserver.observe(document, { childList: true, subtree: true })
 
 function disableShorts(allElements) {
   const shortsElements = Array.from(allElements).filter((element) => element.id === 'dismissible' && element.classList.contains('ytd-rich-shelf-renderer'))
