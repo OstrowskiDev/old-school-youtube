@@ -38,59 +38,56 @@ new MutationObserver(() => {
   }
 }).observe(document, { subtree: true, childList: true })
 
-function triggerWhenShortsVisible() {
-  console.log(`[Old School YouTube] Waiting for Shorts to appear...`)
-  let options = {
-    root: document.documentElement,
-    rootMargin: '0px',
-    threshold: 0,
-  }
+// below code for IntersectionObserver approach
+// function triggerWhenShortsVisible() {
+//   console.log(`[Old School YouTube] Waiting for Shorts to appear...`)
+//   let options = {
+//     root: document.documentElement,
+//     rootMargin: '0px',
+//     threshold: 0,
+//   }
 
-  let observerCallback = (entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        hideUnwantedContent()
-        observer.disconnect()
-      }
-    })
-  }
+//   let observerCallback = (entries, observer) => {
+//     console.log(`[Old School YouTube] observerCallback called`)
 
-  let observer = new IntersectionObserver(observerCallback, options)
-  let target = document.querySelector('#dismissible.ytd-rich-shelf-renderer')
-  if (target) {
-    observer.observe(target)
-  } else {
-    console.log(`[Old School YouTube] Error! Shorts not found.`)
-  }
-}
+//     entries.forEach((entry) => {
+//       console.log(`[Old School YouTube] iterating through entries`)
+//       if (entry.isIntersecting) {
+//         console.log(`[Old School YouTube] Removing Shorts section...`)
 
-// function onElementVisible(selector, callback) {
-//   const element = document.querySelector(selector)
-//   if (element) {
-//     const observer = new IntersectionObserver((entries, obs) => {
-//       entries.forEach((entry) => {
-//         if (entry.isIntersecting) {
-//           callback(entry.target)
-//           obs.disconnect()
-//         }
-//       })
+//         hideUnwantedContent()
+//         observer.disconnect()
+//       }
 //     })
-//     observer.observe(element)
+//   }
+//   console.log(`[Old School YouTube] Creating observer...`)
+//   let observer = new IntersectionObserver(observerCallback, options)
+//   let target = document.querySelector('#dismissible.ytd-rich-shelf-renderer')
+//   if (target) {
+//     console.log(`[Old School YouTube] Target found...`)
+//     observer.observe(target)
+//   } else {
+//     console.log(`[Old School YouTube] Error! Shorts not found.`)
 //   }
 // }
 
-// const mutationObserver = new MutationObserver((mutations) => {
-//   mutations.forEach((mutation) => {
-//     if (mutation.type === 'childList') {
-//       onElementVisible('#dismissible.ytd-rich-shelf-renderer', (element) => {
-//         console.log('[Old School YouTube] Element visible, executing code...')
-//         hideContentOnLoad()
-//       })
-//     }
-//   })
-// })
-
-// mutationObserver.observe(document, { childList: true, subtree: true })
+// below code for element.getBoundingClientRect approach
+//!!! this may not work when video page was hard loaded or was opened as first page from YT SPA, will need to add some code here to handle this exception
+function triggerWhenShortsVisible() {
+  const shorts = document.querySelector('#dismissible.ytd-rich-shelf-renderer')
+  if (!shorts) {
+    console.log(`[Old School YouTube] Shorts section not found.`)
+    return
+  }
+  const rect = shorts.getBoundingClientRect()
+  if (rect.width === 0 || rect.height === 0) {
+    console.log(`[Old School YouTube] Shorts not ready to be disabled, waiting 100ms...`)
+    setTimeout(triggerWhenShortsVisible, 100)
+  } else {
+    console.log(`[Old School YouTube] Removing Shorts section...`)
+    hideUnwantedContent()
+  }
+}
 
 function disableShorts(allElements) {
   const shortsElements = Array.from(allElements).filter((element) => element.id === 'dismissible' && element.classList.contains('ytd-rich-shelf-renderer'))
