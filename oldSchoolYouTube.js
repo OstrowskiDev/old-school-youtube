@@ -32,20 +32,46 @@ new MutationObserver(() => {
     lastUrl = url
     if (isValidYouTubeUrl(url)) {
       console.log(`[Old School YouTube] Url changed, scanning for unwanted content...`)
-      setTimeout(hideContentOnLoad, 1000)
+      triggerWhenShortsVisible()
+      // setTimeout(hideContentOnLoad, 1000)
     }
   }
 }).observe(document, { subtree: true, childList: true })
+
+function triggerWhenShortsVisible() {
+  console.log(`[Old School YouTube] Waiting for Shorts to appear...`)
+  let options = {
+    root: document.documentElement,
+    rootMargin: '0px',
+    threshold: 0,
+  }
+
+  let observerCallback = (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        hideUnwantedContent()
+        observer.disconnect()
+      }
+    })
+  }
+
+  let observer = new IntersectionObserver(observerCallback, options)
+  let target = document.querySelector('#dismissible.ytd-rich-shelf-renderer')
+  if (target) {
+    observer.observe(target)
+  } else {
+    console.log(`[Old School YouTube] Error! Shorts not found.`)
+  }
+}
 
 // function onElementVisible(selector, callback) {
 //   const element = document.querySelector(selector)
 //   if (element) {
 //     const observer = new IntersectionObserver((entries, obs) => {
 //       entries.forEach((entry) => {
-//         // check if the element is visible
 //         if (entry.isIntersecting) {
 //           callback(entry.target)
-//           obs.disconnect() // stop observing the element
+//           obs.disconnect()
 //         }
 //       })
 //     })
