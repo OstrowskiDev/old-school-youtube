@@ -1,4 +1,4 @@
-console.log(`[Old School YouTube] Extension initialized!`)
+console.log(`[Old School YouTube] HELLO! Extension initialized!`)
 
 function hideUnwantedContent() {
   const allElements = document.querySelectorAll('*')
@@ -36,4 +36,4 @@ function disableMusicSection(allElements) {
   }
 }
 
-hideUnwantedContent()
+setTimeout(hideUnwantedContent, 20000)
