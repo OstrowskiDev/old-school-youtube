@@ -26,49 +26,6 @@ function isValidYouTubeUrl(url) {
 
 let lastUrl = new URL(location.href)
 
-function triggerOnNavigation() {
-  new MutationObserver(() => {
-    const url = new URL(location.href)
-    if (url.href !== lastUrl.href) {
-      lastUrl = url
-      if (isValidYouTubeUrl(url)) {
-        console.log(`[Old School YouTube] Url changed, scanning for unwanted content...`)
-        triggerWhenShortsVisible()
-      }
-    }
-  }).observe(document, { subtree: true, childList: true })
-}
-triggerOnNavigation()
-
-// below code for element.getBoundingClientRect approach
-//!!! this will not get triggered when video page was hard loaded or was opened as first page from YT SPA, will need to add some code here to handle this exception
-function triggerWhenShortsVisible() {
-  const shorts = document.querySelector('#dismissible.ytd-rich-shelf-renderer')
-  if (!shorts) {
-    console.log(`[Old School YouTube] Shorts section not found.`)
-    return
-  }
-
-  let counter = 0
-
-  function checkVisibility() {
-    counter++
-    if (counter > 20) {
-      return
-    }
-
-    const rect = shorts.getBoundingClientRect()
-    if (rect.width === 0 || rect.height === 0) {
-      console.log(`[Old School YouTube] Shorts not ready to be disabled, waiting 100ms...`)
-      setTimeout(checkVisibility, 500)
-    } else {
-      console.log(`[Old School YouTube] Removing Shorts section...`)
-      hideUnwantedContent()
-    }
-  }
-  checkVisibility()
-}
-
 function disableShorts(allElements) {
   const shortsElements = Array.from(allElements).filter((element) => element.id === 'dismissible' && element.classList.contains('ytd-rich-shelf-renderer'))
   console.log(`[Old School YouTube] Disabling Shorts...`)
