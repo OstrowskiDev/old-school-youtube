@@ -8,7 +8,7 @@ function hideUnwantedContent() {
 }
 
 function disableShorts() {
-  const shortsLikeElements = document.querySelector('ytd-rich-shelf-renderer')
+  const shortsLikeElements = document.querySelectorAll('.ytd-rich-shelf-renderer')
   if (shortsLikeElements) {
     console.log(`[Old School YouTube] Shorts array length: ${shortsLikeElements.length}`)
   }
@@ -26,7 +26,7 @@ function disableShorts() {
 }
 
 function disableMusicSection() {
-  const musicSectionLikeElements = document.querySelector('ytd-statement-banner-renderer')
+  const musicSectionLikeElements = document.querySelectorAll('.ytd-statement-banner-renderer')
   const musicSectionElements = Array.from(musicSectionLikeElements).filter((element) => element.id === 'dismissible')
   console.log(`[Old School YouTube] Disabling Music section...`)
 
