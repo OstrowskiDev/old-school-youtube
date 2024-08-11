@@ -42,15 +42,36 @@ function disableMusicSection() {
 
 let distanceChecked = 0
 
-window.addEventListener('scroll', function () {
-  const totalDistance = window.scrollY
-  const distanceWithoutCheck = totalDistance - distanceChecked
+function scrollListener() {
+  window.addEventListener('scroll', function () {
+    const totalDistance = window.scrollY
+    const distanceWithoutCheck = totalDistance - distanceChecked
 
-  if (distanceWithoutCheck > 400) {
-    console.log(`[Old School YouTube] - distance threshold reached!`)
-    disableShorts()
-    distanceChecked = distanceChecked + 400
-  }
-})
+    if (distanceWithoutCheck > 400) {
+      console.log(`[Old School YouTube] - distance threshold reached!`)
+      disableShorts()
+      distanceChecked = distanceChecked + 400
+    }
+  })
+}
+scrollListener()
+
+let lastUrl = new URL(location.href)
+
+function triggerOnNavigation() {
+  new MutationObserver(() => {
+    const url = new URL(location.href)
+    if (url.href !== lastUrl.href) {
+      lastUrl = url
+      if (isValidYouTubeUrl(url)) {
+        console.log(`[Old School YouTube] Url changed, scanning for unwanted content...`)
+        disableShorts()
+        disableMusicSection()
+        scrollListener()
+      }
+    }
+  }).observe(document, { subtree: true, childList: true })
+}
+triggerOnNavigation()
 
 setTimeout(hideUnwantedContent, 1500)
