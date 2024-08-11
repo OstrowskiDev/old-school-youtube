@@ -58,6 +58,10 @@ scrollListener()
 
 let lastUrl = new URL(location.href)
 
+function isValidYouTubeUrl(url) {
+  return url.hostname === 'www.youtube.com' && (url.pathname === '/' || url.pathname.startsWith('/?'))
+}
+
 function triggerOnNavigation() {
   new MutationObserver(() => {
     const url = new URL(location.href)
@@ -67,6 +71,7 @@ function triggerOnNavigation() {
         console.log(`[Old School YouTube] Url changed, scanning for unwanted content...`)
         disableShorts()
         disableMusicSection()
+        distanceChecked = 0
         scrollListener()
       }
     }
