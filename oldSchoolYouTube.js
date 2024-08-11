@@ -3,7 +3,7 @@ console.log(`[Old School YouTube]: Basic version 1.0 - Extension initialized!`)
 function hideUnwantedContent() {
   console.log(`[Old School YouTube] Attempting to revert UI back to YouTube from good old days...`)
   disableShorts()
-  disableMusicSection(allElements)
+  disableMusicSection()
   console.log(`[Old School YouTube] Welcome back to early YouTube days!`)
 }
 
@@ -39,4 +39,18 @@ function disableMusicSection() {
     console.log(`[Old School YouTube] Error! Music section ont found.`)
   }
 }
+
+let distanceChecked = 0
+
+window.addEventListener('scroll', function () {
+  const totalDistance = window.scrollY
+  const distanceWithoutCheck = totalDistance - distanceChecked
+
+  if (distanceWithoutCheck > 400) {
+    console.log(`[Old School YouTube] - distance threshold reached!`)
+    disableShorts()
+    distanceChecked = distanceChecked + 400
+  }
+})
+
 setTimeout(hideUnwantedContent, 1500)
