@@ -1,4 +1,7 @@
-![Old School YouTube](./icons/appico.svg)
+<div style="text-align: center;">
+  <img src="./icons/appico.svg" alt="Old School YouTube" width="64" height="64" />
+  <h1>Old School YouTube</h1>
+</div>
 
 ## Overview
 
@@ -29,4 +32,4 @@ I'm planning to add shorts removal from YouTube videos sub-pages. Apart from tha
 
 ## License
 
-MIT License [you can read it here](https://github.com/OstrowskiDev/old-school-youtube/blob/main/LICENSE.txt)
+MIT License: [you can read it here](https://github.com/OstrowskiDev/old-school-youtube/blob/main/LICENSE.txt)
