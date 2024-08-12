@@ -1,7 +1,18 @@
-<div style="text-align: center;">
-  <img src="./icons/appico.svg" alt="Old School YouTube" width="64" height="64" />
-  <h1>Old School YouTube</h1>
-</div>
+***
+
+<h1 align="center">
+  <sub>
+    <img src="./icons/appico.svg" alt="Old School YouTube" height="38" width="38">
+  </sub>
+  Old School YouTube
+</h1>
+<p align="center">
+  <sub>
+    Mozilla's Firefox Extension
+  </sub>
+</p>
+
+***
 
 ## Overview
 
@@ -32,4 +43,4 @@ I'm planning to add shorts removal from YouTube videos sub-pages. Apart from tha
 
 ## License
 
-MIT License: [you can read it here](https://github.com/OstrowskiDev/old-school-youtube/blob/main/LICENSE.txt)
+MIT License: [full document here](https://github.com/OstrowskiDev/old-school-youtube/blob/main/LICENSE.txt)
