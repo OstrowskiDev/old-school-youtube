@@ -4,9 +4,9 @@
 
 This repository holds Old School YouTube Firefox extension files.
 
-Extension aims to hide non video content from YouTube's main page. Focusing mainly on Shorts Section and other content that normally can only be disabled temporarily. Thus giving back to the users ability to decide what content they want to see on YouTube's main page.
+This Firefox extension aims to hide non video content from YouTube's main page. Focusing mainly on Shorts Section and other content that normally can only be disabled temporarily. Thus giving back to the users ability to decide what content they want to see on YouTube's main page.
 
-Extension focuses on YouTube's main page experience. You will be able to view shorts on their dedicated page, specific channel pages, and so on.
+Extension focuses on YouTube's main page experience. Currently no changes were made to YouTube's sub-pages. Although one is planned (see below). You will be able to view shorts on their dedicated page, channel pages, and so on.
 
 ## Requirements
 
@@ -19,7 +19,7 @@ You can [visit official Mozilla extensions website](https://addons.mozilla.org/e
 ## How to use
 
 Just add this extension to your Firefox browser from Mozilla's official site:
-- Click [this link](https://addons.mozilla.org/en-US/firefox/extensions/)
+- Go to Old School YouTube extension site [on Mozilla official site](https://addons.mozilla.org/en-US/firefox/extensions/)
 - Click "Add to Firefox" button
 - Enjoy!
 
