@@ -79,4 +79,19 @@ function triggerOnNavigation() {
 }
 triggerOnNavigation()
 
+function detectLogoClick() {
+  const ytLogo = document.querySelector('.yt-simple-endpoint.ytd-topbar-logo-renderer')
+
+  if (ytLogo) {
+    ytLogo.addEventListener('click', () => {
+      console.log('[Old School YouTube] YT logo was clicked! Reloading scripts...')
+      distanceChecked = 0
+      setTimeout(hideUnwantedContent, 1500)
+    })
+  } else {
+    console.error('[Old School YouTube] YouTube logo element not found.')
+  }
+}
+
+setTimeout(detectLogoClick, 1500)
 setTimeout(hideUnwantedContent, 1500)
