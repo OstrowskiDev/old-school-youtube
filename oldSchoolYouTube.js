@@ -1,85 +1,82 @@
 console.log(`[Old School YouTube]: Extension initialized!`)
 
+let mainPageShortsSelector = 'ytd-rich-shelf-renderer'
+let mainPagePremiumMusicPromptSelector = 'ytd-statement-banner-renderer'
+let mainPagePremiumAccountPromptSelector = 'need to find this'
+let videoPageShortsSelector = 'need to find this'
+
+let hideShortsOnMainPage = true
+let hidePremiumMusicPromptOnMainPage = true
+let hidePremiumAccountPromptOnMainPage = true
+let hideShortsOnVideoPage = true
+
 function hideUnwantedContent() {
   disableShorts()
   disableMusicSection(allElements)
 }
 
-function disableShorts() {
-  const shortsLikeElements = document.querySelectorAll('.ytd-rich-shelf-renderer')
-  if (shortsLikeElements) {
-  }
-  const shortsElements = Array.from(shortsLikeElements).filter((element) => element.id === 'dismissible')
-
-  if (shortsElements.length > 0) {
-    shortsElements.forEach((shorts) => {
-      shorts.style.display = 'none'
-    })
-  }
-}
-
-function disableMusicSection() {
-  const musicSectionLikeElements = document.querySelectorAll('.ytd-statement-banner-renderer')
-  const musicSectionElements = Array.from(musicSectionLikeElements).filter((element) => element.id === 'dismissible')
-
-  if (musicSectionElements.length > 0) {
-    musicSectionElements.forEach((music) => {
-      music.style.display = 'none'
-    })
-  }
-}
-
-let distanceChecked = 0
-
-function scrollListener() {
-  window.addEventListener('scroll', function () {
-    const totalDistance = window.scrollY
-    const distanceWithoutCheck = totalDistance - distanceChecked
-
-    if (distanceWithoutCheck > 400) {
-      disableShorts()
-      distanceChecked = distanceChecked + 400
+function waitForElement(selector, observeElement = document.body, { childList = true, subtree = true } = {}) {
+  return new Promise((resolve) => {
+    let element = document.querySelector(selector)
+    if (element) {
+      return resolve(element)
     }
+    const elementObserver = new MutationObserver(() => {
+      element = document.querySelector(selector)
+      if (element) {
+        resolve(element)
+        elementObserver.disconnect()
+      }
+    })
+    elementObserver.observe(observeElement, { childList: childList, subtree: subtree })
   })
 }
-scrollListener()
 
-let lastUrl = new URL(location.href)
-
-function isValidYouTubeUrl(url) {
-  return url.hostname === 'www.youtube.com' && (url.pathname === '/' || url.pathname.startsWith('/?'))
-}
-
-function triggerOnNavigation() {
-  new MutationObserver(() => {
-    const url = new URL(location.href)
-    if (url.href !== lastUrl.href) {
-      lastUrl = url
-      if (isValidYouTubeUrl(url)) {
-        console.log(`[Old School YouTube] Url changed, scanning for unwanted content...`)
-        disableShorts()
-        disableMusicSection()
-        distanceChecked = 0
-        scrollListener()
-      }
+function waitForElementTimeout(selector, observeElement = document.body, { childList = true, subtree = true, timeout_ms = 150 } = {}) {
+  return new Promise((resolve) => {
+    let element = document.querySelector(selector)
+    if (element) {
+      return resolve(element)
     }
-  }).observe(document, { subtree: true, childList: true })
-}
-triggerOnNavigation()
-
-function detectLogoClick() {
-  const ytLogo = document.querySelector('.yt-simple-endpoint.ytd-topbar-logo-renderer')
-
-  if (ytLogo) {
-    ytLogo.addEventListener('click', () => {
-      console.log('[Old School YouTube] YT logo was clicked! Reloading scripts...')
-      distanceChecked = 0
-      setTimeout(hideUnwantedContent, 1500)
+    let timer = null
+    const elementObserver = new MutationObserver(() => {
+      element = document.querySelector(selector)
+      if (element) {
+        clearTimeout(timer)
+        resolve(element)
+        elementObserver.disconnect()
+      }
     })
-  } else {
-    console.error('[Old School YouTube] YouTube logo element not found.')
+    elementObserver.observe(observeElement, { childList: childList, subtree: subtree })
+    if (timeout_ms > 0)
+      timer = setTimeout(() => {
+        resolve(null)
+        elementObserver.disconnect()
+      }, timeout_ms)
+  })
+}
+
+function hideElement(hide, element, onHideCallback = () => {}) {
+  if (hide) {
+    if (!element.hasAttribute('hidden')) {
+      element.setAttribute('hidden', true)
+      onHideCallback()
+    }
+  } else if (element.hasAttribute('hidden')) {
+    element.removeAttribute('hidden')
   }
 }
 
-setTimeout(detectLogoClick, 1500)
-setTimeout(hideUnwantedContent, 1500)
+function hidingShortsTimeout(callback, timeMs) {
+  if (isHidingShortsTimeoutActive) return
+  isHidingShortsTimeoutActive = true
+  timeoutId = setTimeout(() => {
+    callback()
+    isHidingShortsTimeoutActive = false
+  }, timeMs)
+}
+
+function clearShortsTimeout() {
+  clearTimeout(timeoutId)
+  isHidingShortsTimeoutActive = false
+}
