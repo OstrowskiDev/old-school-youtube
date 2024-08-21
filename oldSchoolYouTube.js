@@ -7,8 +7,8 @@ let homePageRichContentContainerSelector = '#contents.ytd-rich-grid-renderer'
 let homePageContentGridSelector = '#content.ytd-rich-section-renderer'
 let homePageShortsSelector = 'ytd-rich-shelf-renderer'
 let homePagePremiumMusicPromptSelector = 'ytd-statement-banner-renderer'
-let homePagePremiumAccountPromptSelector = 'need to find this'
-let videoPageShortsSelector = 'need to find this'
+let homePagePremiumAccountPromptSelector = 'need to add this'
+let videoPageShortsSelector = 'need to add this'
 
 let hideShortsOnHomePage = true
 let hidePremiumMusicPromptOnHomePage = true
@@ -18,19 +18,6 @@ let hideShortsOnVideoPage = true
 hideHomePageShortsCallback()
 
 // const homePageShortsObserver = manageObserver(homePageShortsSelector, hideShortsOnHomePage, hideHomePageShortsCallback, homePageShortsObserver, { childList: true, subtree: true })
-
-function manageObserver(selector, active, callback, aObserver = null, { childList = false, subtree = false, attributes = false } = {}) {
-  if (aObserver === null && active) {
-    waitForElement(selector, document.body).then((node) => {
-      aObserver = new MutationObserver(callback)
-      aObserver.observe(node, { childList: childList, subtree: subtree, attributes: attributes })
-    })
-  } else if (aObserver !== null && !active) {
-    aObserver.disconnect()
-    aObserver = null
-  }
-  return aObserver
-}
 
 function waitForElement(selector, observeElement = document.body, { childList = true, subtree = true } = {}) {
   return new Promise((resolve) => {
@@ -42,6 +29,8 @@ function waitForElement(selector, observeElement = document.body, { childList = 
       element = document.querySelector(selector)
       if (element) {
         resolve(element)
+        console.log(`[Old School YouTube]: Element found!`)
+        console.log(`[Old School YouTube]: Disconnecting observer...`)
         elementObserver.disconnect()
       }
     })
@@ -69,19 +58,35 @@ function hideElement(hide, element, onHideCallback = () => {}) {
 function hideHomePageShortsCallback(hide = true) {
   console.log(`[Old School YouTube]: Initializing ShortsCallback...`)
   waitForElement(homePageRichContentContainerSelector, document.body)
-    .then((wrapperElement) => {
-      console.log(`[Old School YouTube]: Searching for parent...`)
-      waitForElement(homePageContentGridSelector, wrapperElement)
+    .then((wrapperElement1) => {
+      return waitForElement(homePageContentGridSelector, wrapperElement1)
     })
-    .then((wrapperElement) => {
-      console.log(`[Old School YouTube]: Searching for shorts section...`)
-      waitForElement(homePageShortsSelector, wrapperElement)
+    .then((wrapperElement2) => {
+      return waitForElement(homePageShortsSelector, wrapperElement2)
     })
     .then((element) => {
-      console.log(`[Old School YouTube]: Calling hideElement func...`)
-      if (element != null) hideElement(hide, element)
+      if (element != null) {
+        console.log(`[Old School YouTube]: element is not null`)
+        hideElement(hide, element)
+      }
+    })
+    .catch((error) => {
+      console.error(`[Old School YouTube]: Error in hideHomePageShortsCallback: ${error}`)
     })
 }
+
+// function manageObserver(selector, active, callback, aObserver = null, { childList = false, subtree = false, attributes = false } = {}) {
+//   if (aObserver === null && active) {
+//     waitForElement(selector, document.body).then((node) => {
+//       aObserver = new MutationObserver(callback)
+//       aObserver.observe(node, { childList: childList, subtree: subtree, attributes: attributes })
+//     })
+//   } else if (aObserver !== null && !active) {
+//     aObserver.disconnect()
+//     aObserver = null
+//   }
+//   return aObserver
+// }
 
 // function waitForElementTimeout(selector, observeElement = document.body, { childList = true, subtree = true, timeout_ms = 150 } = {}) {
 //   return new Promise((resolve) => {
