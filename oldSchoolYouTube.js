@@ -1,4 +1,5 @@
 console.log(`[Old School YouTube]: Extension initialized!`)
+console.log(chrome.i18n.getMessage('extension-initialized'))
 
 let homePageRichContentContainerSelector = '#contents.ytd-rich-grid-renderer'
 // grid container, currently only has shorts section:
