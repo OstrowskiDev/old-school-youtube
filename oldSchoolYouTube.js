@@ -13,9 +13,7 @@ let hidePremiumMusicPromptOnHomePage = true
 let hidePremiumAccountPromptOnHomePage = true
 let hideShortsOnVideoPage = true
 
-hideHomePageShortsCallback()
-
-// const homePageShortsObserver = manageObserver(homePageShortsSelector, hideShortsOnHomePage, hideHomePageShortsCallback, homePageShortsObserver, { childList: true, subtree: true })
+hideHomePageShorts()
 
 function waitForElement(selector, observeElement = document.body, { childList = true, subtree = true } = {}) {
   return new Promise((resolve) => {
@@ -45,7 +43,7 @@ function hideElement(hide, element, onHideCallback = () => {}) {
   }
 }
 
-function hideHomePageShortsCallback(hide = true) {
+function hideHomePageShorts(hide = true) {
   waitForElement(homePageRichContentContainerSelector, document.body)
     .then((wrapperElement1) => {
       return waitForElement(homePageContentGridSelector, wrapperElement1)
@@ -59,57 +57,6 @@ function hideHomePageShortsCallback(hide = true) {
       }
     })
     .catch((error) => {
-      console.error(`[Old School YouTube]: Error in hideHomePageShortsCallback: ${error}`)
+      console.error(`[Old School YouTube]: Error in hideHomePageShorts: ${error}`)
     })
 }
-
-// function manageObserver(selector, active, callback, aObserver = null, { childList = false, subtree = false, attributes = false } = {}) {
-//   if (aObserver === null && active) {
-//     waitForElement(selector, document.body).then((node) => {
-//       aObserver = new MutationObserver(callback)
-//       aObserver.observe(node, { childList: childList, subtree: subtree, attributes: attributes })
-//     })
-//   } else if (aObserver !== null && !active) {
-//     aObserver.disconnect()
-//     aObserver = null
-//   }
-//   return aObserver
-// }
-
-// function waitForElementTimeout(selector, observeElement = document.body, { childList = true, subtree = true, timeout_ms = 150 } = {}) {
-//   return new Promise((resolve) => {
-//     let element = document.querySelector(selector)
-//     if (element) {
-//       return resolve(element)
-//     }
-//     let timer = null
-//     const elementObserver = new MutationObserver(() => {
-//       element = document.querySelector(selector)
-//       if (element) {
-//         clearTimeout(timer)
-//         resolve(element)
-//         elementObserver.disconnect()
-//       }
-//     })
-//     elementObserver.observe(observeElement, { childList: childList, subtree: subtree })
-//     if (timeout_ms > 0)
-//       timer = setTimeout(() => {
-//         resolve(null)
-//         elementObserver.disconnect()
-//       }, timeout_ms)
-//   })
-// }
-
-// function hidingShortsTimeout(callback, timeMs) {
-//   if (isHidingShortsTimeoutActive) return
-//   isHidingShortsTimeoutActive = true
-//   timeoutId = setTimeout(() => {
-//     callback()
-//     isHidingShortsTimeoutActive = false
-//   }, timeMs)
-// }
-
-// function clearShortsTimeout() {
-//   clearTimeout(timeoutId)
-//   isHidingShortsTimeoutActive = false
-// }
