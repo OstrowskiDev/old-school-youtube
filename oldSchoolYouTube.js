@@ -1,5 +1,3 @@
-// 'hp' prefix and 'HP' suffix used in variable names stans for 'home page'
-
 console.log(`[Old School YouTube]: Extension initialized!`)
 
 let homePageRichContentContainerSelector = '#contents.ytd-rich-grid-renderer'
@@ -29,8 +27,6 @@ function waitForElement(selector, observeElement = document.body, { childList = 
       element = document.querySelector(selector)
       if (element) {
         resolve(element)
-        console.log(`[Old School YouTube]: Element found!`)
-        console.log(`[Old School YouTube]: Disconnecting observer...`)
         elementObserver.disconnect()
       }
     })
@@ -39,14 +35,8 @@ function waitForElement(selector, observeElement = document.body, { childList = 
 }
 
 function hideElement(hide, element, onHideCallback = () => {}) {
-  console.log(`[Old School YouTube]: Initializing hideElement func...`)
-
   if (hide) {
-    console.log(`[Old School YouTube]: hide is true`)
-
     if (!element.hasAttribute('hidden')) {
-      console.log(`[Old School YouTube]: setting hidden attribute to true`)
-
       element.setAttribute('hidden', true)
       onHideCallback()
     }
@@ -56,7 +46,6 @@ function hideElement(hide, element, onHideCallback = () => {}) {
 }
 
 function hideHomePageShortsCallback(hide = true) {
-  console.log(`[Old School YouTube]: Initializing ShortsCallback...`)
   waitForElement(homePageRichContentContainerSelector, document.body)
     .then((wrapperElement1) => {
       return waitForElement(homePageContentGridSelector, wrapperElement1)
@@ -66,7 +55,6 @@ function hideHomePageShortsCallback(hide = true) {
     })
     .then((element) => {
       if (element != null) {
-        console.log(`[Old School YouTube]: element is not null`)
         hideElement(hide, element)
       }
     })
