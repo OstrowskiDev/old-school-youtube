@@ -137,12 +137,11 @@ async function hideSearchPageShorts(hide = true) {
     }
   }
 }
-
+// rafactor this baby to be async
 async function hideOneShortsContainerOnSearchPage(hide = true) {
   console.log(`[Old School YouTube]: Running hide search page shorts func!`)
   if (searchPageShortsObserverActive) return
   searchPageShortsObserverActive = true
-
   waitForElement(searchPageResultsContainerSelector, document.body, searchPageShortsObserverControl)
     .then((wrapperElement1) => {
       console.log(`[Old School YouTube]: Passing wrapperElement1!`)
