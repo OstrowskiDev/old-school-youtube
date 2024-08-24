@@ -11,10 +11,16 @@ let searchPageShortsObserverControl = { isActive: false, runObserver: true }
 let homePageRichContentContainerSelector = '#contents.ytd-rich-grid-renderer'
 let homePageContentGridSelector = '#content.ytd-rich-section-renderer'
 let homePageShortsSelector = 'ytd-rich-shelf-renderer'
-//search results page shorts containers hierarchy:
-let searchPageResultsContainerSelector = '#contents.ytd-item-section-renderer'
+
+//search results page shorts containers hierarchy and behavior:
+// #container.ytd-search: top level container for search results, cant wait to see what happens with this one
+// #contents.ytd-section-list-renderer: lowest top level container for search results that is ancestor for all shorts containers. But it gets created multiple times between page navigations to search results. Old elements are grayed out but still can get targeted by selectors.
+//ytd-item-section-renderer: direct child of element above, rendered multiple times while scrolling down, each section contains deeply nested shorts
+// ytd-reel-shelf-renderer: shorts container, it is rendered multiple times while scrolling down
+let searchPageResultsContainerSelector = '#container.ytd-search'
 let searchPageShortsSelector = 'ytd-reel-shelf-renderer:not([hidden="true"])'
-// others:
+
+// other selectors:
 let homePagePremiumMusicPromptSelector = 'ytd-statement-banner-renderer'
 let homePagePremiumAccountPromptSelector = 'need to add this'
 let videoPageShortsSelector = 'need to add this'
@@ -135,31 +141,33 @@ async function hideSearchPageShorts(hide = true) {
     } catch (error) {
       console.error(`[Old School YouTube] Error in hideSearchPageShorts: ${error}`)
     }
+    await new Promise((resolve) => setTimeout(resolve, 100))
   }
 }
-// rafactor this baby to be async
+// refactor this baby to be async
 async function hideOneShortsContainerOnSearchPage(hide = true) {
   console.log(`[Old School YouTube]: Running hide search page shorts func!`)
+  console.log(`[Old School YouTube]: searchPageShortsObserverActive: ${searchPageShortsObserverActive}`)
+
   if (searchPageShortsObserverActive) return
   searchPageShortsObserverActive = true
-  waitForElement(searchPageResultsContainerSelector, document.body, searchPageShortsObserverControl)
-    .then((wrapperElement1) => {
-      console.log(`[Old School YouTube]: Passing wrapperElement1!`)
-      return waitForElement(searchPageShortsSelector, wrapperElement1, searchPageShortsObserverControl, { childList: true, subtree: false })
-    })
-    .then((element) => {
-      console.log(`[Old School YouTube]: Initializing hide function!`)
-      if (element != null) {
-        console.log(`[Old School YouTube]: Shorts on search page hidden!`)
-        hideElement(hide, element)
-      }
-    })
-    .catch((error) => {
-      console.error(`[Old School YouTube]: Error in hideSearchPageShorts: ${error}`)
-    })
-    .finally(() => {
-      searchPageShortsObserverActive = false
-    })
+
+  try {
+    const wrapperElement1 = await waitForElement(searchPageResultsContainerSelector, document.body, searchPageShortsObserverControl)
+    console.log(`[Old School YouTube]: Passing wrapperElement1!`)
+
+    const element = await waitForElement(searchPageShortsSelector, wrapperElement1, searchPageShortsObserverControl, { childList: true, subtree: true })
+    console.log(`[Old School YouTube]: Initializing hide function!`)
+
+    if (element != null) {
+      console.log(`[Old School YouTube]: Shorts on search page hidden!`)
+      hideElement(hide, element)
+    }
+  } catch (error) {
+    console.error(`[Old School YouTube]: Error in hideOneShortsContainerOnSearchPage: ${error}`)
+  } finally {
+    searchPageShortsObserverActive = false
+  }
 }
 
 function disconnectObserverAfterNavigation({ intervalId, observerControl, elementObserver, selector, resolve }) {
