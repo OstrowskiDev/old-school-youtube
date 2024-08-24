@@ -127,16 +127,31 @@ function hideHomePageShorts(hide = true) {
 }
 
 // serach page has multiple shorts sections, they generate while user is scrolling down
-function hideSearchPageShorts(hide = true) {
+async function hideSearchPageShorts(hide = true) {
+  //run observer all the time until user navigates to another page
+  while (searchPageShortsObserverControl.runObserver) {
+    try {
+      const result = await hideOneShortsContainerOnSearchPage()
+    } catch (error) {
+      console.error(`[Old School YouTube] Error in hideSearchPageShorts: ${error}`)
+    }
+  }
+}
+
+async function hideOneShortsContainerOnSearchPage(hide = true) {
+  console.log(`[Old School YouTube]: Running hide search page shorts func!`)
   if (searchPageShortsObserverActive) return
   searchPageShortsObserverActive = true
 
   waitForElement(searchPageResultsContainerSelector, document.body, searchPageShortsObserverControl)
     .then((wrapperElement1) => {
+      console.log(`[Old School YouTube]: Passing wrapperElement1!`)
       return waitForElement(searchPageShortsSelector, wrapperElement1, searchPageShortsObserverControl, { childList: true, subtree: false })
     })
     .then((element) => {
+      console.log(`[Old School YouTube]: Initializing hide function!`)
       if (element != null) {
+        console.log(`[Old School YouTube]: Shorts on search page hidden!`)
         hideElement(hide, element)
       }
     })
