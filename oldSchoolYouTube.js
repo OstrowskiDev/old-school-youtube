@@ -4,6 +4,9 @@ let currentPathname = location.pathname
 let homePageShortsObserverActive = false
 let searchPageShortsObserverActive = false
 
+let homePageShortsObserverControl = { isActive: false, runObserver: true }
+let searchPageShortsObserverControl = { isActive: false, runObserver: true }
+
 //home page shorts containers hierarchy:
 let homePageRichContentContainerSelector = '#contents.ytd-rich-grid-renderer'
 let homePageContentGridSelector = '#content.ytd-rich-section-renderer'
@@ -23,18 +26,23 @@ let hideShortsOnVideoPage = true
 
 console.log(chrome.i18n.getMessage('extension-initialized'))
 listenForPathnameChange()
-hideHomePageShorts()
-hideSearchPageShorts()
+hideContentByPathname()
 
-function handleNavigation() {
+function hideContentByPathname() {
   if (currentPathname === '/') {
     console.log('[Old School YouTube]: Home page detected')
+    homePageShortsObserverControl.runObserver = true
+    searchPageShortsObserverControl.runObserver = false
     hideHomePageShorts()
   } else if (currentPathname.startsWith('/watch')) {
     console.log('[Old School YouTube]: Video page detected')
+    homePageShortsObserverControl.runObserver = false
+    searchPageShortsObserverControl.runObserver = false
   } else if (currentPathname.startsWith('/results')) {
-    hideSearchPageShorts()
     console.log('[Old School YouTube]: Search page detected')
+    homePageShortsObserverControl.runObserver = false
+    searchPageShortsObserverControl.runObserver = true
+    hideSearchPageShorts()
   } else {
     console.log('[Old School YouTube]: Where am I?')
   }
@@ -50,16 +58,29 @@ function listenForPathnameChange() {
   }, 500)
 }
 
-function waitForElement(selector, observeElement = document.body, { childList = true, subtree = true } = {}) {
+function handleNavigation() {
+  hideContentByPathname()
+}
+
+function waitForElement(selector, observeElement = document.body, observerControl, { childList = true, subtree = true } = {}) {
   return new Promise((resolve) => {
+    console.log(`[Old School YouTube]: Running waitForElement func with selector: ${selector}, runObserver: ${observerControl.runObserver} `)
+    if (!observerControl.runObserver) {
+      return resolve(null)
+    }
+
     let element = document.querySelector(selector)
     if (element) {
       return resolve(element)
     }
+    let intervalId = null
     const elementObserver = new MutationObserver(() => {
+      const observerParams = { intervalId, observerControl, elementObserver, selector, resolve }
+      intervalId = disconnectObserverAfterNavigation(observerParams)
       element = document.querySelector(selector)
       if (element) {
         resolve(element)
+        clearInterval(intervalId)
         elementObserver.disconnect()
       }
     })
@@ -78,21 +99,22 @@ function hideElement(hide, element, onHideCallback = () => {}) {
   }
 }
 
-// home page has one shorts section that generates on page load
+// home page has one shorts section that is rendered in random height of page, this means that sometimes user needs to scroll down to trigger its rendering
 function hideHomePageShorts(hide = true) {
   if (homePageShortsObserverActive) return
   homePageShortsObserverActive = true
 
-  waitForElement(homePageRichContentContainerSelector, document.body)
+  waitForElement(homePageRichContentContainerSelector, document.body, homePageShortsObserverControl)
     .then((wrapperElement1) => {
-      return waitForElement(homePageContentGridSelector, wrapperElement1)
+      return waitForElement(homePageContentGridSelector, wrapperElement1, homePageShortsObserverControl)
     })
     .then((wrapperElement2) => {
-      return waitForElement(homePageShortsSelector, wrapperElement2)
+      return waitForElement(homePageShortsSelector, wrapperElement2, homePageShortsObserverControl)
     })
     .then((element) => {
       if (element != null) {
         hideElement(hide, element)
+        console.log(`[Old School YouTube]: Shorts on homepage hidden!`)
       }
     })
     .catch((error) => {
@@ -108,9 +130,9 @@ function hideSearchPageShorts(hide = true) {
   if (searchPageShortsObserverActive) return
   searchPageShortsObserverActive = true
 
-  waitForElement(searchPageResultsContainerSelector, document.body)
+  waitForElement(searchPageResultsContainerSelector, document.body, searchPageShortsObserverControl)
     .then((wrapperElement1) => {
-      return waitForElement(searchPageShortsSelector, wrapperElement1, { childList: true, subtree: false })
+      return waitForElement(searchPageShortsSelector, wrapperElement1, searchPageShortsObserverControl, { childList: true, subtree: false })
     })
     .then((element) => {
       if (element != null) {
@@ -123,4 +145,19 @@ function hideSearchPageShorts(hide = true) {
     .finally(() => {
       searchPageShortsObserverActive = false
     })
+}
+
+function disconnectObserverAfterNavigation({ intervalId, observerControl, elementObserver, selector, resolve }) {
+  if (intervalId === null) {
+    intervalId = setInterval(() => {
+      console.log(`[Old School YouTube]: Running interval, listening for ${selector} changes`)
+      if (!observerControl.runObserver) {
+        console.log(`[Old School YouTube]: Observer for ${selector} stopped`)
+        elementObserver.disconnect()
+        clearInterval(intervalId)
+        return resolve(null)
+      }
+    }, 2000)
+  }
+  return intervalId
 }
