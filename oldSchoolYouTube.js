@@ -75,6 +75,7 @@ function waitForElement(selector, observeElement = document.body, observerContro
     }
     let intervalId = null
     const elementObserver = new MutationObserver(() => {
+      console.log(`[Old School YouTube]: MUTATION OBSERVER CALLBACK TRIGGERED`)
       const observerParams = { intervalId, observerControl, elementObserver, selector, resolve }
       intervalId = disconnectObserverAfterNavigation(observerParams)
       element = document.querySelector(selector)
