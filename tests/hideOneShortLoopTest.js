@@ -1,6 +1,8 @@
+console.log('[Old School YouTube] Tests file: hideOneShortLoopTests loaded')
+
 let counter = 0
 
-export function testHideOneShortLoop() {
+function testHideOneShortLoop() {
   setInterval(() => {
     if (counter > 15) {
       console.error(`[Old School YouTube]: Error! hideSearchPageShorts loop is being triggered to many times. Loop was triggered ${counter} times in last two seconds.`)
@@ -9,6 +11,6 @@ export function testHideOneShortLoop() {
   }, 2000)
 }
 
-export function addTestCounter() {
+function addTestCounter() {
   counter++
 }

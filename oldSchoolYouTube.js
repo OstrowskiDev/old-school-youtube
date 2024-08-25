@@ -1,5 +1,3 @@
-import { testHideOneShortLoop, addTestCounter } from './tests/hideOneShortLoopTest.js'
-
 let oldPathname = location.pathname
 let currentPathname = location.pathname
 
