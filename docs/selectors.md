@@ -1,9 +1,9 @@
 
 # YouTube HTML elements hierarchy and behavior
 Purpose of this file is to gather data on behavior of specific YT html elements.
-So it is clear why some selectors are used and others not.
+This matters a lot for this extension as its code is heavily based on what elements should be observed and deactivated by mutationObservers. 
 
-## Search results page shorts elements hierarchy and behavior:
+## Search results page:
 
 1. **`#container.ytd-search`**
    - Top-level container for search results.
@@ -21,3 +21,16 @@ So it is clear why some selectors are used and others not.
 4. **`ytd-reel-shelf-renderer`**
    - Shorts container.
    - Rendered multiple times while scrolling down.
+
+## Channel page:
+
+1. **`ytd-browse`**
+   - Top level container for channel content. 
+
+2. **`ytd-section-list-renderer`**
+   - Low level container for channel videos and shorts section. 
+   - Can get deactivated between page navigations.
+
+3. **`ytd-reel-shelf-renderer`**
+   - Shorts container.
+   - Currently channel page has only one section with shorts.
