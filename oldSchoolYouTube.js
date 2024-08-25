@@ -1,3 +1,5 @@
+import { testHideOneShortLoop, addTestCounter } from './tests/hideOneShortLoopTest.js'
+
 let oldPathname = location.pathname
 let currentPathname = location.pathname
 
@@ -12,11 +14,7 @@ let homePageRichContentContainerSelector = '#contents.ytd-rich-grid-renderer'
 let homePageContentGridSelector = '#content.ytd-rich-section-renderer'
 let homePageShortsSelector = 'ytd-rich-shelf-renderer'
 
-//search results page shorts containers hierarchy and behavior:
-// #container.ytd-search: top level container for search results, cant wait to see what happens with this one
-// #contents.ytd-section-list-renderer: lowest top level container for search results that is ancestor for all shorts containers. But it gets created multiple times between page navigations to search results. Old elements are grayed out but still can get targeted by selectors.
-//ytd-item-section-renderer: direct child of element above, rendered multiple times while scrolling down, each section contains deeply nested shorts
-// ytd-reel-shelf-renderer: shorts container, it is rendered multiple times while scrolling down
+//search results page shorts containers hierarchy:
 let searchPageResultsContainerSelector = '#container.ytd-search'
 let searchPageShortsSelector = 'ytd-reel-shelf-renderer:not([hidden="true"])'
 
@@ -137,6 +135,8 @@ async function hideSearchPageShorts(hide = true) {
   //run observer all the time until user navigates to another page
   while (searchPageShortsObserverControl.runObserver) {
     try {
+      // !test-logic
+      addTestCounter()
       const result = await hideOneShortsContainerOnSearchPage()
     } catch (error) {
       console.error(`[Old School YouTube] Error in hideSearchPageShorts: ${error}`)
@@ -184,3 +184,6 @@ function disconnectObserverAfterNavigation({ intervalId, observerControl, elemen
   }
   return intervalId
 }
+
+// development tests section:
+testHideOneShortLoop()
