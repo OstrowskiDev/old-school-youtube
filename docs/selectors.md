@@ -34,3 +34,9 @@ This matters a lot for this extension as its code is heavily based on what eleme
 3. **`ytd-reel-shelf-renderer`**
    - Shorts container.
    - Currently channel page has only one section with shorts.
+
+
+## Premium Music:
+
+1. **'ytd-statement-banner-renderer'**
+   - Top level container
