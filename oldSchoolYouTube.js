@@ -13,9 +13,11 @@ let searchPageShortsObserverControl = { observerName: 'searchShorts', isActive: 
 let channelPageShortsObserverControl = { observerName: 'channelShorts', isActive: false, runObserver: true }
 
 //home page shorts containers hierarchy:
-let homePageContentContainerSelector = '#contents.ytd-rich-grid-renderer'
+let homePageShortsParentSelector = '#contents.ytd-rich-grid-renderer'
+let homePageShortsChildSelector = 'ytd-rich-section-renderer:not([hidden]):not([style*="display: none"])'
+// let homePageShortsGrandchildSelector = '#content.ytd-rich-section-renderer:not([hidden]):not([style*="display: none"])'
 // let homePageContentGridSelector = '#content.ytd-rich-section-renderer'
-let homePageShortsSelector = 'ytd-rich-shelf-renderer:not([hidden]):not([style*="display: none"])'
+// let homePageShortsSelector = 'ytd-rich-shelf-renderer:not([hidden]):not([style*="display: none"])'
 
 //search results page shorts containers hierarchy:
 let searchPageResultsContainerSelector = '#container.ytd-search'
@@ -137,9 +139,9 @@ function hideHomePageShorts(hide = true) {
   homePageShortsObserverActive = true
   console.log(`[Old School YouTube]: hideHomePageShorts activated!`)
 
-  waitForElement(homePageContentContainerSelector, document.body, homePageShortsObserverControl)
-    .then((wrapperElement) => {
-      return waitForElement(homePageShortsSelector, wrapperElement, homePageShortsObserverControl)
+  waitForElement(homePageShortsParentSelector, document.body, homePageShortsObserverControl, { childList: true, subtree: false })
+    .then((wrapperElement1) => {
+      return waitForElement(homePageShortsChildSelector, wrapperElement1, homePageShortsObserverControl, { childList: true, subtree: false })
     })
     .then((element) => {
       if (element != null) {
