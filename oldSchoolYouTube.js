@@ -14,10 +14,7 @@ let channelPageShortsObserverControl = { observerName: 'channelShorts', isActive
 
 //home page shorts containers hierarchy:
 let homePageShortsParentSelector = '#contents.ytd-rich-grid-renderer'
-let homePageShortsChildSelector = 'ytd-rich-section-renderer:not([hidden]):not([style*="display: none"])'
-// let homePageShortsGrandchildSelector = '#content.ytd-rich-section-renderer:not([hidden]):not([style*="display: none"])'
-// let homePageContentGridSelector = '#content.ytd-rich-section-renderer'
-// let homePageShortsSelector = 'ytd-rich-shelf-renderer:not([hidden]):not([style*="display: none"])'
+let homePageShortsSelector = 'ytd-rich-section-renderer:not([hidden]):not([style*="display: none"])'
 
 //search results page shorts containers hierarchy:
 let searchPageResultsContainerSelector = '#container.ytd-search'
@@ -28,8 +25,8 @@ let channelPageResultsContainerSelector = 'ytd-browse:not([hidden]):not([style*=
 let channelPageShortsSelector = 'ytd-reel-shelf-renderer:not([hidden]):not([style*="display: none"])'
 
 // home page premium music prompt selector:
-// use hierarchy from home page shorts
-let homePagePremiumMusicPromptSelector = 'ytd-statement-banner-renderer:not([hidden]):not([style*="display: none"])'
+let homePagePremiumMusicParentSelector = '#contents.ytd-rich-grid-renderer'
+let homePagePremiumMusicSelector = 'ytd-statement-banner-renderer:not([hidden]):not([style*="display: none"])'
 
 // home page premium account prompt selector, haven't seen it for a while, will add it when/if it appears, maybe yt disabled it permanently.
 let homePagePremiumAccountPromptSelector = ''
@@ -96,21 +93,22 @@ function handleNavigation() {
 }
 
 function waitForElement(selector, observeElement = document.body, observerControl, { childList = true, subtree = true } = {}) {
+  console.log(`[Old School YouTube]: Observer subtrees: ${subtree}, childList: ${childList}`)
   return new Promise((resolve) => {
     console.log(`[Old School YouTube]: Running waitForElement func with selector: ${selector}, observer: ${observerControl.observerName}, runObserver: ${observerControl.runObserver} `)
     if (!observerControl.runObserver) {
+      console.log(`[Old School YouTube]: Observer ${observerControl.observerName} stopped, because runObserver is false`)
       return resolve(null)
     }
 
     let element = document.querySelector(selector)
     if (element) {
+      console.log(`[Old School YouTube]: Element ${selector} found on initial load!`)
       return resolve(element)
     }
     let intervalId = null
     const elementObserver = new MutationObserver(() => {
       console.log(`[Old School YouTube]: Observer: ${observerControl.observerName} detected changes in ${selector}`)
-      const observerParams = { intervalId, observerControl, elementObserver, selector, resolve }
-      intervalId = disconnectObserverAfterNavigation(observerParams)
       element = document.querySelector(selector)
       if (element) {
         resolve(element)
@@ -119,6 +117,10 @@ function waitForElement(selector, observeElement = document.body, observerContro
       }
     })
     elementObserver.observe(observeElement, { childList: childList, subtree: subtree })
+    console.log(`[Old School YouTube]: Observer ${observerControl.observerName} initialized`)
+    const observerParams = { intervalId, observerControl, elementObserver, selector, resolve }
+    intervalId = disconnectObserverAfterNavigation(observerParams)
+    console.log(`[Old School YouTube]: Interval initialized for ${observerControl.observerName}`)
   })
 }
 
@@ -139,9 +141,9 @@ function hideHomePageShorts(hide = true) {
   homePageShortsObserverActive = true
   console.log(`[Old School YouTube]: hideHomePageShorts activated!`)
 
-  waitForElement(homePageShortsParentSelector, document.body, homePageShortsObserverControl, { childList: true, subtree: false })
+  waitForElement(homePageShortsParentSelector, document.body, homePageShortsObserverControl, { childList: true, subtree: true })
     .then((wrapperElement1) => {
-      return waitForElement(homePageShortsChildSelector, wrapperElement1, homePageShortsObserverControl, { childList: true, subtree: false })
+      return waitForElement(homePageShortsSelector, wrapperElement1, homePageShortsObserverControl, { childList: true, subtree: false })
     })
     .then((element) => {
       if (element != null) {
@@ -161,9 +163,9 @@ function hideHomePagePremiumMusic(hide = true) {
   if (homePagePremiumMusicObserverActive) return
   homePagePremiumMusicObserverActive = true
 
-  waitForElement(homePageRichContentContainerSelector, document.body, homePagePremiumMusicObserverControl)
-    .then((wrapperElement1) => {
-      return waitForElement(homePagePremiumMusicPromptSelector, wrapperElement1, homePagePremiumMusicObserverControl)
+  waitForElement(homePagePremiumMusicParentSelector, document.body, homePagePremiumMusicObserverControl, { childList: true, subtree: true })
+    .then((wrapperElement) => {
+      return waitForElement(homePagePremiumMusicSelector, wrapperElement, homePagePremiumMusicObserverControl, { childList: true, subtree: false })
     })
     .then((element) => {
       if (element != null) {
@@ -219,8 +221,10 @@ async function hideOneShortsContainerOnSearchPage(hide = true) {
 }
 
 function hideChannelPageShorts(hide = true) {
+  console.log(`[Old School YouTube]: hideChannelPageShorts called`)
   if (channelPageShortsObserverActive) return
   channelPageShortsObserverActive = true
+  console.log(`[Old School YouTube]: hideChannelPageShorts activated!`)
 
   waitForElement(channelPageResultsContainerSelector, document.body, channelPageShortsObserverControl)
     .then((wrapperElement1) => {
