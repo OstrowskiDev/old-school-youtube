@@ -4,6 +4,7 @@ let currentPathname = location.pathname
 let homePageShortsObserverActive = false
 let searchPageShortsObserverActive = false
 let channelPageShortsObserverActive = false
+let homePagePremMusicObserverActive = false
 
 let homePageShortsObserverControl = { observerName: 'homeShorts', isActive: false, runObserver: true }
 let searchPageShortsObserverControl = { observerName: 'searchShorts', isActive: false, runObserver: true }
@@ -25,14 +26,13 @@ let channelPageShortsSelector = 'ytd-reel-shelf-renderer:not([hidden="true"])'
 // other selectors:
 let homePagePremiumMusicPromptSelector = 'ytd-statement-banner-renderer'
 let homePagePremiumAccountPromptSelector = 'need to add this'
-let videoPageShortsSelector = 'need to add this'
 
 let hideShortsOnHomePage = true
 let hidePremiumMusicPromptOnHomePage = true
 let hidePremiumAccountPromptOnHomePage = true
 let hideShortsOnVideoPage = true
 
-console.log(chrome.i18n.getMessage('extension-initialized'))
+consoleTranslation('extension-initialized', 'highlight blue')
 listenForPathnameChange()
 hideContentByPathname()
 
@@ -135,7 +135,7 @@ function hideHomePageShorts(hide = true) {
     .then((element) => {
       if (element != null) {
         hideElement(hide, element)
-        console.log(`%c[Old School YouTube]: Shorts on homepage hidden!`, `color: green; font-weight: bold;`)
+        consoleTranslation('shorts-hidden-on-homepage', 'highlight green')
       }
     })
     .catch((error) => {
@@ -175,7 +175,7 @@ async function hideOneShortsContainerOnSearchPage(hide = true) {
     const element = await waitForElement(searchPageShortsSelector, wrapperElement1, searchPageShortsObserverControl, { childList: true, subtree: true })
 
     if (element != null) {
-      console.log(`%c[Old School YouTube]: Shorts on search page hidden!`, `color: green; font-weight: bold;`)
+      consoleTranslation('shorts-hidden-on-search-page', 'highlight green')
       hideElement(hide, element)
     }
   } catch (error) {
@@ -196,7 +196,7 @@ function hideChannelPageShorts(hide = true) {
     .then((element) => {
       if (element != null) {
         hideElement(hide, element)
-        console.log(`%c[Old School YouTube]: Shorts on channel page hidden!`, `color: green; font-weight: bold;`)
+        consoleTranslation('shorts-hidden-on-channel-page', 'highlight green')
       }
     })
     .catch((error) => {
@@ -220,6 +220,22 @@ function disconnectObserverAfterNavigation({ intervalId, observerControl, elemen
     }, 2000)
   }
   return intervalId
+}
+
+function consoleTranslation(message, style = '') {
+  let messageStyle
+  switch (style) {
+    case 'highlight green':
+      messageStyle = 'color: green; font-weight: bold;'
+      break
+    case 'highlight red':
+      messageStyle = 'color: red; font-weight: bold;'
+      break
+    case 'highlight blue':
+      messageStyle = 'color: blue; font-weight: bold;'
+      break
+  }
+  return console.log(`%c${chrome.i18n.getMessage(message)}`, messageStyle)
 }
 
 // development tests section:
