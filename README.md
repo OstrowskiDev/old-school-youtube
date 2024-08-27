@@ -8,7 +8,7 @@
 </h1>
 <p align="center">
   <sub>
-    Mozilla's Firefox Extension
+    Mozilla's Firefox and Chrome Extension
   </sub>
 </p>
 
@@ -16,15 +16,13 @@
 
 ## Overview
 
-This repository holds Old School YouTube Firefox extension files.
+This repository holds Old School YouTube Firefox/Chrome extension files.
 
-This Firefox extension aims to hide non video content from YouTube's main page. Focusing mainly on Shorts Section and other content that normally can only be disabled temporarily. Thus giving back to the users ability to decide what content they want to see on YouTube's main page.
-
-Extension focuses on YouTube's main page experience. Currently no changes were made to YouTube's sub-pages. Although one is planned (see below). You will be able to view shorts on their dedicated page, channel pages, and so on.
+This extension aims to hide non video content from YouTube's pages. Focusing mainly on Shorts Section and other content that normally can only be disabled temporarily. Thus giving back to the users ability to decide what content they want to see on YouTube.
 
 ## Requirements
 
-- Mozilla Firefox browser
+- Mozilla Firefox or Chrome browser
 
 ## Downloads
 

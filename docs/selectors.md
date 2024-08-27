@@ -3,6 +3,17 @@
 Purpose of this file is to gather data on behavior of specific YT html elements.
 This matters a lot for this extension as its code is heavily based on what elements should be observed and deactivated by mutationObservers. 
 
+## Homepage:
+1. **`#contents.ytd-rich-grid-renderer`**
+   - Top-level container for content on homepage
+2. **`ytd-rich-section-renderer`**
+   - parent container of short section
+   - currently contains only shorts
+3. **`content.ytd-rich-section-renderer`**
+   -shorts section
+   -currently only one shorts section is rendered on home page
+
+
 ## Search results page:
 
 1. **`#container.ytd-search`**
@@ -36,7 +47,8 @@ This matters a lot for this extension as its code is heavily based on what eleme
    - Currently channel page has only one section with shorts.
 
 
-## Premium Music:
+## Premium Music Prompt on home page:
 
 1. **'ytd-statement-banner-renderer'**
    - Top level container
+   - Is rendered very rarely. Users may encounter it once or twice a week.

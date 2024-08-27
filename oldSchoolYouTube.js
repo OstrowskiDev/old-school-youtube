@@ -2,30 +2,35 @@ let oldPathname = location.pathname
 let currentPathname = location.pathname
 
 let homePageShortsObserverActive = false
+let homePagePremiumMusicObserverActive = false
 let searchPageShortsObserverActive = false
 let channelPageShortsObserverActive = false
 let homePagePremMusicObserverActive = false
 
 let homePageShortsObserverControl = { observerName: 'homeShorts', isActive: false, runObserver: true }
+let homePagePremiumMusicObserverControl = { observerName: 'homePremiumMusicPrompt', isActive: false, runObserver: true }
 let searchPageShortsObserverControl = { observerName: 'searchShorts', isActive: false, runObserver: true }
 let channelPageShortsObserverControl = { observerName: 'channelShorts', isActive: false, runObserver: true }
 
 //home page shorts containers hierarchy:
-let homePageRichContentContainerSelector = '#contents.ytd-rich-grid-renderer'
-let homePageContentGridSelector = '#content.ytd-rich-section-renderer'
-let homePageShortsSelector = 'ytd-rich-shelf-renderer'
+let homePageContentContainerSelector = '#contents.ytd-rich-grid-renderer'
+// let homePageContentGridSelector = '#content.ytd-rich-section-renderer'
+let homePageShortsSelector = 'ytd-rich-shelf-renderer:not([hidden]):not([style*="display: none"])'
 
 //search results page shorts containers hierarchy:
 let searchPageResultsContainerSelector = '#container.ytd-search'
-let searchPageShortsSelector = 'ytd-reel-shelf-renderer:not([hidden="true"])'
+let searchPageShortsSelector = 'ytd-reel-shelf-renderer:not([hidden]):not([style*="display: none"])'
 
 //channel page shorts containers hierarchy:
 let channelPageResultsContainerSelector = 'ytd-browse:not([hidden]):not([style*="display: none"])'
-let channelPageShortsSelector = 'ytd-reel-shelf-renderer:not([hidden="true"])'
+let channelPageShortsSelector = 'ytd-reel-shelf-renderer:not([hidden]):not([style*="display: none"])'
 
-// other selectors:
-let homePagePremiumMusicPromptSelector = 'ytd-statement-banner-renderer'
-let homePagePremiumAccountPromptSelector = 'need to add this'
+// home page premium music prompt selector:
+// use hierarchy from home page shorts
+let homePagePremiumMusicPromptSelector = 'ytd-statement-banner-renderer:not([hidden]):not([style*="display: none"])'
+
+// home page premium account prompt selector, haven't seen it for a while, will add it when/if it appears, maybe yt disabled it permanently.
+let homePagePremiumAccountPromptSelector = ''
 
 let hideShortsOnHomePage = true
 let hidePremiumMusicPromptOnHomePage = true
@@ -40,29 +45,35 @@ function hideContentByPathname() {
   if (currentPathname === '/') {
     console.log('[Old School YouTube]: Home page detected')
     homePageShortsObserverControl.runObserver = true
+    homePagePremiumMusicObserverControl.runObserver = true
     searchPageShortsObserverControl.runObserver = false
     channelPageShortsObserverControl.runObserver = false
     hideHomePageShorts()
+    // hideHomePagePremiumMusic()
   } else if (currentPathname.startsWith('/watch')) {
     console.log('[Old School YouTube]: Video page detected')
     homePageShortsObserverControl.runObserver = false
+    homePagePremiumMusicObserverControl.runObserver = false
     searchPageShortsObserverControl.runObserver = false
     channelPageShortsObserverControl.runObserver = false
   } else if (currentPathname.startsWith('/results')) {
     console.log('[Old School YouTube]: Search page detected')
     homePageShortsObserverControl.runObserver = false
+    homePagePremiumMusicObserverControl.runObserver = false
     searchPageShortsObserverControl.runObserver = true
     channelPageShortsObserverControl.runObserver = false
     hideSearchPageShorts()
   } else if (currentPathname.startsWith('/@')) {
     console.log('[Old School YouTube]: Channel page detected')
     homePageShortsObserverControl.runObserver = false
+    homePagePremiumMusicObserverControl.runObserver = false
     searchPageShortsObserverControl.runObserver = false
     channelPageShortsObserverControl.runObserver = true
     hideChannelPageShorts()
   } else {
     console.log('[Old School YouTube]: Where am I?')
     homePageShortsObserverControl.runObserver = false
+    homePagePremiumMusicObserverControl.runObserver = false
     searchPageShortsObserverControl.runObserver = false
     channelPageShortsObserverControl.runObserver = false
   }
@@ -95,7 +106,7 @@ function waitForElement(selector, observeElement = document.body, observerContro
     }
     let intervalId = null
     const elementObserver = new MutationObserver(() => {
-      console.log(`[Old School YouTube]: MUTATION OBSERVER CALLBACK TRIGGERED`)
+      console.log(`[Old School YouTube]: Observer: ${observerControl.observerName} detected changes in ${selector}`)
       const observerParams = { intervalId, observerControl, elementObserver, selector, resolve }
       intervalId = disconnectObserverAfterNavigation(observerParams)
       element = document.querySelector(selector)
@@ -109,11 +120,10 @@ function waitForElement(selector, observeElement = document.body, observerContro
   })
 }
 
-function hideElement(hide, element, onHideCallback = () => {}) {
+function hideElement(hide, element) {
   if (hide) {
     if (!element.hasAttribute('hidden')) {
       element.setAttribute('hidden', true)
-      onHideCallback()
     }
   } else if (element.hasAttribute('hidden')) {
     element.removeAttribute('hidden')
@@ -122,15 +132,14 @@ function hideElement(hide, element, onHideCallback = () => {}) {
 
 // home page has one shorts section that is rendered in random height of page, this means that sometimes user needs to scroll down to trigger its rendering
 function hideHomePageShorts(hide = true) {
+  console.log(`[Old School YouTube]: hideHomePageShorts called`)
   if (homePageShortsObserverActive) return
   homePageShortsObserverActive = true
+  console.log(`[Old School YouTube]: hideHomePageShorts activated!`)
 
-  waitForElement(homePageRichContentContainerSelector, document.body, homePageShortsObserverControl)
-    .then((wrapperElement1) => {
-      return waitForElement(homePageContentGridSelector, wrapperElement1, homePageShortsObserverControl)
-    })
-    .then((wrapperElement2) => {
-      return waitForElement(homePageShortsSelector, wrapperElement2, homePageShortsObserverControl)
+  waitForElement(homePageContentContainerSelector, document.body, homePageShortsObserverControl)
+    .then((wrapperElement) => {
+      return waitForElement(homePageShortsSelector, wrapperElement, homePageShortsObserverControl)
     })
     .then((element) => {
       if (element != null) {
@@ -143,6 +152,28 @@ function hideHomePageShorts(hide = true) {
     })
     .finally(() => {
       homePageShortsObserverActive = false
+    })
+}
+
+function hideHomePagePremiumMusic(hide = true) {
+  if (homePagePremiumMusicObserverActive) return
+  homePagePremiumMusicObserverActive = true
+
+  waitForElement(homePageRichContentContainerSelector, document.body, homePagePremiumMusicObserverControl)
+    .then((wrapperElement1) => {
+      return waitForElement(homePagePremiumMusicPromptSelector, wrapperElement1, homePagePremiumMusicObserverControl)
+    })
+    .then((element) => {
+      if (element != null) {
+        hideElement(hide, element)
+        consoleTranslation('premium-music-prompt-hidden-on-homepage', 'highlight green')
+      }
+    })
+    .catch((error) => {
+      console.error(`[Old School YouTube]: Error in hideHomePageShorts: ${error}`)
+    })
+    .finally(() => {
+      homePagePremiumMusicObserverActive = false
     })
 }
 

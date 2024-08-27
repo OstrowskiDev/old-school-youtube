@@ -3,6 +3,7 @@
   "extensionDescription": {"message": "Elimina cortos y películas de la página de inicio de YouTube para que parezca que estamos en 2010."},
   "extension-initialized": {"message": "[Old School YouTube]: ¡Extensión inicializada!"},
   "shorts-hidden-on-homepage": {"message": "[Old School YouTube]: ¡Los cortos en la página de inicio están ocultos!"},
-  "shorts-hidden-on-search-page": {"message": "[Old School YouTube]: ¡Los cortos en la página de búsqueda ocultos!"},
-  "shorts-hidden-on-channel-page": {"message": "[Old School YouTube]: ¡Los cortos en la página del canal ocultos!"}
+  "premium-music-prompt-hidden-on-homepage": {"message": "[Old School YouTube]: ¡La sección de música premium en la página de inicio está oculta!"},
+  "shorts-hidden-on-search-page": {"message": "[Old School YouTube]: ¡Los cortos en la página de búsqueda están ocultos!"},
+  "shorts-hidden-on-channel-page": {"message": "[Old School YouTube]: ¡Los cortos en la página del canal están ocultos!"}
 }
