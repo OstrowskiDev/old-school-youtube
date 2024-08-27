@@ -1,5 +1,5 @@
 {
-  "extensionName": {"message": "Old School YouTube™"},
+  "extensionName": {"message": "Old School YouTube"},
   "extensionDescription": {"message": "Usuwa Shorty i sekcję Premium z strony głownej YouTube, przywracając jej wygląd z wcześniejszych lat"},
   "extension-initialized": {"message": "[Old School YouTube]: Rozszerzenie uruchomione!"},
   "shorts-hidden-on-homepage": {"message": "[Old School YouTube]: Shorty na stronie głównej zostały ukryte!"},

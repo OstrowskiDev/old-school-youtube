@@ -1,5 +1,5 @@
 {
-  "extensionName": {"message": "Old School YouTube™"},
+  "extensionName": {"message": "Old School YouTube"},
   "extensionDescription": {"message": "Removes Shorts and Movies from YouTube homepage to make it feel more like its back to 2010"},
   "extension-initialized": {"message": "[Old School YouTube]: Extension initialized!"},
   "shorts-hidden-on-homepage": {"message": "[Old School YouTube]: Shorts on homepage hidden!"},
