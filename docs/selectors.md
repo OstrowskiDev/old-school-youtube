@@ -40,7 +40,7 @@ This matters a lot for this extension as its code is heavily based on what eleme
 
 1. **`ytd-browse`**
    - Top level container for channel content. Sometimes. Sometimes is deactivated and other elements take its place as top level container for channel content. 
-   - Because of above is not good for targeting with mutationObserver.
+   - Because of above its not good for targeting with mutationObserver.
 
 2. **`ytd-section-list-renderer`**
    - Low level container for channel videos and shorts section. 
