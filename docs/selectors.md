@@ -62,4 +62,15 @@ This matters a lot for this extension as its code is heavily based on what eleme
 
 ## Important!:
 
+## Homepage Premium Account Prompt:
+
+1. **`ytd-rich-section-renderer`**
+   - top level container for premium account prompt
+   - is rendered very rarely, approximately once a month 
+   - rendered once on homepage
+2 **`#content.ytd-rich-section-renderer`**
+   - child of 1
+3 **`ytd-statement-banner-renderer`**
+   -child of 2
+
 **`:not([hidden]):not([style*="display: none"])`** its recommended to add this selector to targeted elements (Top-levels containers don't need it). YT SPA will make some of its elements hidden between page navigations. This ensures that observers will not watch those inactive elements. 

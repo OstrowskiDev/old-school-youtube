@@ -108,7 +108,7 @@ function waitForElement(selector, observeElement = document.body, observerContro
     }
     let intervalId = null
     const elementObserver = new MutationObserver(() => {
-      console.log(`[Old School YouTube]: Observer: ${observerControl.observerName} detected changes in ${selector}`)
+      console.log(`%c[Old School YouTube]: Observer: ${observerControl.observerName} detected changes in ${observeElement} children`, 'color: blue; font-weight: bold;')
       element = document.querySelector(selector)
       if (element) {
         resolve(element)
