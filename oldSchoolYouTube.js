@@ -1,6 +1,10 @@
 let oldPathname = location.pathname
 let currentPathname = location.pathname
 
+let shortsObserver = null
+let premiumMusicObserver = null
+let premiumAccountObserver = null
+
 let homePageShortsObserverActive = false
 let homePagePremiumMusicObserverActive = false
 let searchPageShortsObserverActive = false

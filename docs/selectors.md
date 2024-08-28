@@ -60,7 +60,6 @@ This matters a lot for this extension as its code is heavily based on what eleme
    - Contains only premium music prompt
    - Is rendered very rarely. Users may encounter it once or twice a week.
 
-## Important!:
 
 ## Homepage Premium Account Prompt:
 
@@ -73,4 +72,11 @@ This matters a lot for this extension as its code is heavily based on what eleme
 3 **`ytd-statement-banner-renderer`**
    -child of 2
 
+## Important!:
+
 **`:not([hidden]):not([style*="display: none"])`** its recommended to add this selector to targeted elements (Top-levels containers don't need it). YT SPA will make some of its elements hidden between page navigations. This ensures that observers will not watch those inactive elements. 
+
+## Tests:
+Section for ideas regarding selectors:
+
+**`#content`** selector is used as common ancestor on many different pathnames. If this is always true for every pathname that contains shorts it could be used to simplify the code significantly.
