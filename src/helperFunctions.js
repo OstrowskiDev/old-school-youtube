@@ -1,4 +1,4 @@
-consoleTranslation('extension-initialized', 'highlight blue')
+console.log('[Old School YouTube]: Helper functions loaded.')
 
 function consoleTranslation(message, style = '') {
   let messageStyle

@@ -11,7 +11,7 @@
   "content_scripts": [
     {
       "matches": ["*://www.youtube.com/*"],
-      "js": [ "oldSchoolYouTubeV2.js" ,"tests/elementAnalyser.js", "tests/hideOneShortLoopTest.js"],
+      "js": [ "src/mian.js", "src/helperFunctions.js", "src/observersData.js"],
       "run_at": "document_idle"
     }
   ],
