@@ -1,5 +1,37 @@
 consoleTranslation('extension-initialized', 'highlight blue')
 
+let lastPathname = window.location.pathname
+let currentPathname = window.location.pathname
+
+const pathNameObserver = watchPathnameChanges()
+
+function watchPathnameChanges() {
+  let lastPathname = window.location.pathname
+
+  const observer = new MutationObserver(() => {
+    currentPathname = window.location.pathname
+    if (currentPathname !== lastPathname) {
+      lastPathname = currentPathname
+      onNavigationChange()
+    }
+  })
+  observer.observe(document.body, { childList: true, subtree: true })
+  return observer
+}
+
+function onNavigationChange() {
+  for (const observer of observersData) {
+    const { isActive, pathName, parentSelector, targetSelector, parentObserver, targetObserver } = observer
+    // check pathName and set isActive accordingly
+    // for better clarity manageObserver function should be divided to manageParentObserver and manageTargetObserver, with return values their respective observers
+    manageObserver(parentSelector, targetSelector, isActive, hideElement, parentObserver, targetObserver)
+  }
+}
+
+function hideElement(selector) {
+  //code here
+}
+
 function getDelayedElement(selector, target = document.body, { childList = true, subtree = true } = {}) {
   return new Promise((resolve) => {
     let element = document.querySelector(selector)
@@ -17,15 +49,24 @@ function getDelayedElement(selector, target = document.body, { childList = true,
   })
 }
 
-function manageObserver(selector, isActive, callback, observer = null, { childList = false, subtree = false, attributes = false } = {}) {
-  if (observer === null && isActive) {
-    waitForElement(selector, document.body).then((node) => {
-      observer = new MutationObserver(callback)
-      observer.observe(node, { childList: childList, subtree: subtree, attributes: attributes })
-    })
-  } else if (observer !== null && !isActive) {
-    observer.disconnect()
-    observer = null
+manageObserver(parentSelector, targetSelector, isActive, hideElement, parentObserver, targetObserver)
+function manageObserver(parentSelector, targetSelector, isActive, callback, parentObserver = null, targetObserver = null, { childList = false, subtree = false, attributes = false } = {}) {
+  if (targetObserver !== null && !isActive) {
+    targetObserver.disconnect()
+    targetObserver = null
   }
-  return observer
+  if (parentObserver === null && isActive) {
+    getDelayedElement(parentSelector, document.body)
+      .then((parentElement) => {
+        return getDelayedElement(targetSelector, parentElement)
+      })
+      .then((targetElement) => {
+        parentObserver = new MutationObserver(callback)
+        parentObserver.observe(targetElement, { childList: childList, subtree: subtree, attributes: attributes })
+      })
+  } else if (parentObserver !== null && !isActive) {
+    parentObserver.disconnect()
+    parentObserver = null
+  }
+  return parentObserver
 }
