@@ -34,14 +34,15 @@ function hideElement(selector) {
 
 function getDelayedElement(selector, target = document.body, { childList = true, subtree = true } = {}) {
   return new Promise((resolve) => {
+    let observer = null
     let element = document.querySelector(selector)
     if (element) {
-      return resolve(element)
+      return resolve({ element, observer })
     }
-    const observer = new MutationObserver(() => {
+    observer = new MutationObserver(() => {
       element = document.querySelector(selector)
       if (element) {
-        resolve(element)
+        resolve({ element, observer })
         observer.disconnect()
       }
     })
@@ -49,24 +50,33 @@ function getDelayedElement(selector, target = document.body, { childList = true,
   })
 }
 
-manageObserver(parentSelector, targetSelector, isActive, hideElement, parentObserver, targetObserver)
-function manageObserver(parentSelector, targetSelector, isActive, callback, parentObserver = null, targetObserver = null, { childList = false, subtree = false, attributes = false } = {}) {
-  if (targetObserver !== null && !isActive) {
-    targetObserver.disconnect()
-    targetObserver = null
-  }
+function manageParentObserver(parentSelector, targetSelector, isActive, callback, parentObserver = null, targetObserver = null, { childList = false, subtree = false, attributes = false } = {}) {
   if (parentObserver === null && isActive) {
-    getDelayedElement(parentSelector, document.body)
-      .then((parentElement) => {
-        return getDelayedElement(targetSelector, parentElement)
-      })
-      .then((targetElement) => {
-        parentObserver = new MutationObserver(callback)
-        parentObserver.observe(targetElement, { childList: childList, subtree: subtree, attributes: attributes })
-      })
+    let parentElement = getDelayedElement(parentSelector, document.body)
   } else if (parentObserver !== null && !isActive) {
     parentObserver.disconnect()
     parentObserver = null
   }
   return parentObserver
 }
+
+// function manageDblObserver(parentSelector, targetSelector, isActive, callback, parentObserver = null, targetObserver = null, { childList = false, subtree = false, attributes = false } = {}) {
+//   if (targetObserver !== null && !isActive) {
+//     targetObserver.disconnect()
+//     targetObserver = null
+//   }
+//   if (parentObserver === null && isActive) {
+//     getDelayedElement(parentSelector, document.body)
+//       .then((parentElement) => {
+//         return getDelayedElement(targetSelector, parentElement)
+//       })
+//       .then((targetElement) => {
+//         parentObserver = new MutationObserver(callback)
+//         parentObserver.observe(targetElement, { childList: childList, subtree: subtree, attributes: attributes })
+//       })
+//   } else if (parentObserver !== null && !isActive) {
+//     parentObserver.disconnect()
+//     parentObserver = null
+//   }
+//   return parentObserver
+// }

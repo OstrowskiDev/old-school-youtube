@@ -72,6 +72,15 @@ This matters a lot for this extension as its code is heavily based on what eleme
 3 **`ytd-statement-banner-renderer`**
    -child of 2
 
+## Shorts on Vide Page:
+its very rare for video page to display shorts
+
+1. **`#contents.ytd-item-section-renderer`**
+   - top level container
+2. **`ytd-reel-shelf-renderer`**
+   - shorts container
+   - one per vide page
+
 ## Important!:
 
 **`:not([hidden]):not([style*="display: none"])`** its recommended to add this selector to targeted elements (Top-levels containers don't need it). YT SPA will make some of its elements hidden between page navigations. This ensures that observers will not watch those inactive elements. 
