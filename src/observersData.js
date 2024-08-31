@@ -5,7 +5,7 @@ let homePagePremiumMusicPromptsObserver = null
 
 observersData = [
   {
-    isActive: false,
+    enabled: false,
     pathName: '/',
     parentSelector: '#contents.ytd-rich-grid-renderer',
     targetSelector: 'ytd-rich-section-renderer',
@@ -13,7 +13,7 @@ observersData = [
     targetObserverId: null,
   },
   {
-    isActive: false,
+    enabled: false,
     pathName: '/results?',
     parentSelector: '#container.ytd-search',
     targetSelector: 'ytd-reel-shelf-renderer',
@@ -21,7 +21,7 @@ observersData = [
     targetObserverId: null,
   },
   {
-    isActive: false,
+    enabled: false,
     pathName: '/@',
     parentSelector: 'ytd-browse',
     targetSelector: 'ytd-reel-shelf-renderer',
@@ -29,7 +29,7 @@ observersData = [
     targetObserverId: null,
   },
   {
-    isActive: false,
+    enabled: false,
     pathName: '/',
     parentSelector: '#contents.ytd-rich-grid-renderer',
     targetSelector: 'ytd-statement-banner-renderer',
