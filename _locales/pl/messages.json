@@ -5,6 +5,8 @@
   "shorts-hidden-on-homepage": {"message": "[Old School YouTube]: Shorty na stronie głównej zostały ukryte!"},
   "premium-music-prompt-hidden-on-homepage": {"message": "[Old School YouTube]: Sekcja Premium Music na stronie głównej została ukryta!"},
   "shorts-hidden-on-search-page": {"message": "[Old School YouTube]: Shorty na stronie wyników wyszukiwania zostały ukryte!"},
-  "shorts-hidden-on-channel-page": {"message": "[Old School YouTube]: Shorty na stronie kanału zostały ukryte!"}
+  "shorts-hidden-on-channel-page": {"message": "[Old School YouTube]: Shorty na stronie kanału zostały ukryte!"},
+  "element-hidden!": {"message": "[Old School YouTube]: Element został ukryty!"}
+
 
 }

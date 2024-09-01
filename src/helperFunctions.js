@@ -1,6 +1,8 @@
-console.log('[Old School YouTube]: Helper functions loaded.')
+console.log(`[Old Shool YouTube]: helper function file loaded`)
 
 function consoleTranslation(message, style = '') {
+  console.log(`[Old Shool YouTube]: consoleTranslation triggered`)
+
   let messageStyle
   switch (style) {
     case 'highlight green':

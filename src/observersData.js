@@ -1,8 +1,10 @@
-observersData = [
+console.log(`[Old Shool YouTube]: observersData loaded`)
+
+const observersData = [
   {
     name: 'homepageShorts',
     enabled: false,
-    regex: '/^/$/',
+    regex: '^/$',
     parentSelector: '#contents.ytd-rich-grid-renderer',
     targetSelector: 'ytd-rich-section-renderer',
     parentObserverId: null,
@@ -11,7 +13,7 @@ observersData = [
   {
     name: 'resultsPageShorts',
     enabled: false,
-    regex: '/^/results?/',
+    regex: '^/results',
     parentSelector: '#container.ytd-search',
     targetSelector: 'ytd-reel-shelf-renderer',
     parentObserverId: null,
@@ -20,7 +22,7 @@ observersData = [
   {
     name: 'channelPageShorts',
     enabled: false,
-    regex: '/^/@/',
+    regex: '^/@',
     parentSelector: 'ytd-browse',
     targetSelector: 'ytd-reel-shelf-renderer',
     parentObserverId: null,
@@ -29,7 +31,7 @@ observersData = [
   {
     name: 'homepagePremiumMusicPrompt',
     enabled: false,
-    regex: '/^/$/',
+    regex: '^/$',
     parentSelector: '#contents.ytd-rich-grid-renderer',
     targetSelector: 'ytd-statement-banner-renderer',
     parentObserverId: null,
