@@ -1,36 +1,35 @@
-let homePageShortsObserver = null
-let searchPageShortsObserver = null
-let channelPageShortsObserver = null
-let homePagePremiumMusicPromptsObserver = null
-
 observersData = [
   {
+    name: 'homepageShorts',
     enabled: false,
-    pathName: '/',
+    regex: '/^/$/',
     parentSelector: '#contents.ytd-rich-grid-renderer',
     targetSelector: 'ytd-rich-section-renderer',
     parentObserverId: null,
     targetObserverId: null,
   },
   {
+    name: 'resultsPageShorts',
     enabled: false,
-    pathName: '/results?',
+    regex: '/^/results?/',
     parentSelector: '#container.ytd-search',
     targetSelector: 'ytd-reel-shelf-renderer',
     parentObserverId: null,
     targetObserverId: null,
   },
   {
+    name: 'channelPageShorts',
     enabled: false,
-    pathName: '/@',
+    regex: '/^/@/',
     parentSelector: 'ytd-browse',
     targetSelector: 'ytd-reel-shelf-renderer',
     parentObserverId: null,
     targetObserverId: null,
   },
   {
+    name: 'homepagePremiumMusicPrompt',
     enabled: false,
-    pathName: '/',
+    regex: '/^/$/',
     parentSelector: '#contents.ytd-rich-grid-renderer',
     targetSelector: 'ytd-statement-banner-renderer',
     parentObserverId: null,
