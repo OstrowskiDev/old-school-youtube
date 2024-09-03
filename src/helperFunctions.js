@@ -15,3 +15,9 @@ function consoleTranslation(message, style = '') {
   }
   return console.log(`%c${chrome.i18n.getMessage(message)}`, messageStyle)
 }
+
+function printObservers() {
+  observersData.forEach((observer) => {
+    console.log(`Name: ${observer.name}, Enabled: ${observer.enabled}, ParentObserver is active: ${observer.parentObserverId !== null}, TargetObserver is active: ${observer.targetObserverId !== null}`)
+  })
+}
