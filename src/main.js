@@ -23,40 +23,47 @@ function watchPathnameChanges() {
 }
 
 async function onNavigationChange() {
-  console.log(`[Old Shool YouTube]: Navigation triggered`)
+  console.log(`[Old School YouTube]: Navigation triggered`)
   // disable/enable observers according to the current pathname
-  console.log(`[Old Shool YouTube]: currentPathname: ${currentPathname}`)
+  console.log(`[Old School YouTube]: currentPathname: ${currentPathname}`)
   observersData.forEach((observer) => {
     try {
       const regex = new RegExp(observer.regex)
       if (regex.test(currentPathname)) {
-        console.log(`[Old Shool YouTube]: Enabling observer ${observer.name}`)
+        console.log(`[Old School YouTube]: Enabling observer ${observer.name}`)
         observer.enabled = true
       } else {
-        console.log(`[Old Shool YouTube]: Disabling observer ${observer.name}`)
+        console.log(`[Old School YouTube]: Disabling observer ${observer.name}`)
         observer.enabled = false
       }
     } catch (error) {
-      console.error(`[Old Shool YouTube]: Error processing observer ${observer.name}:`, error)
+      console.error(`[Old School YouTube]: Error processing observer ${observer.name}:`, error)
     }
   })
 
   const observerPromises = []
 
+  // version 1: no callback:
+  // observersData.forEach((observer) => {
+  //   const promise = (async () => {
+  //     const { name, enabled, parentSelector, targetSelector, parentObserver, targetObserver } = observer
+
+  //     const results = await manageParentObserver(parentSelector, enabled, parentObserver, name)
+  //     const parentElement = results.element
+  //     observer.parentObserver = results.observer
+
+  //     if (parentElement) {
+  //       console.log(`[Old School YouTube]: parentElement found, initializing manageTargetObserver for ${observer.name}`)
+  //       const results2 = await manageTargetObserver(targetSelector, enabled, targetObserver, parentElement, name)
+  //       observer.targetObserver = results2.observer
+  //     }
+  //   })()
+  //   observerPromises.push(promise)
+  // })
+
+  // version 2: callback function
   observersData.forEach((observer) => {
-    const promise = (async () => {
-      const { name, enabled, parentSelector, targetSelector, parentObserver, targetObserver } = observer
-
-      const results = await manageParentObserver(parentSelector, enabled, parentObserver, name)
-      const parentElement = results.element
-      observer.parentObserver = results.observer
-
-      if (parentElement) {
-        console.log(`[Old Shool YouTube]: parentElement found, initializing manageTargetObserver for ${observer.name}`)
-        const results2 = await manageTargetObserver(targetSelector, enabled, targetObserver, parentElement, name)
-        observer.targetObserver = results2.observer
-      }
-    })()
+    const promise = findAndHideElement(observer)
     observerPromises.push(promise)
   })
 
@@ -64,8 +71,23 @@ async function onNavigationChange() {
   await Promise.all(observerPromises)
 }
 
+async function findAndHideElement(observer) {
+  console.log(`[Old School YouTube]: findAndHideElement called`)
+  const { name, enabled, parentSelector, targetSelector, parentObserver, targetObserver } = observer
+
+  const results = await manageParentObserver(parentSelector, enabled, parentObserver, name)
+  const parentElement = results.element
+  observer.parentObserver = results.observer
+
+  if (parentElement) {
+    console.log(`[Old School YouTube]: parentElement found, initializing manageTargetObserver for ${observer.name}`)
+    const results2 = await manageTargetObserver(targetSelector, enabled, targetObserver, parentElement, name)
+    observer.targetObserver = results2.observer
+  }
+}
+
 function hideElement(element) {
-  console.log(`[Old Shool YouTube]: If this logs i will be very happy =]`)
+  console.log(`[Old School YouTube]: If this logs i will be very happy =]`)
   consoleTranslation('element-hidden!', 'highlight blue')
 
   if (!element.hasAttribute('hidden')) {
@@ -74,7 +96,7 @@ function hideElement(element) {
 }
 
 function trackElementWithObserver(selector, target = document.body, observerName, { childList = true, subtree = true } = {}) {
-  console.log(`[Old Shool YouTube]: trackElementWithObserver triggered, selector: ${observerName}`)
+  console.log(`[Old School YouTube]: trackElementWithObserver triggered, selector: ${observerName}`)
 
   return new Promise((resolve) => {
     let observer = null
@@ -87,31 +109,33 @@ function trackElementWithObserver(selector, target = document.body, observerName
       if (element) {
         resolve({ element: element, observer: observer })
         observer.disconnect()
+        observer = null
       }
     })
+    console.log(`[Old School YouTube]: childList: ${childList}, subtree: ${subtree}`)
     observer.observe(target, { childList: childList, subtree: subtree })
   })
 }
 
-async function manageParentObserver(parentSelector, enabled, parentObserver = null, name, { childList = false, subtree = false } = {}) {
-  // console.log(`[Old Shool YouTube]: manageParentObserver triggered, parentSelector: ${parentSelector}`)
+async function manageParentObserver(parentSelector, enabled, parentObserver = null, name, { childList = true, subtree = true } = {}) {
+  // console.log(`[Old School YouTube]: manageParentObserver triggered, parentSelector: ${parentSelector}`)
 
   if (parentObserver === null && enabled) {
-    console.log(`[Old Shool YouTube]: creating parentObserver ${name}`)
+    console.log(`[Old School YouTube]: creating parentObserver ${name}`)
     const elementAndObserver = await trackElementWithObserver(parentSelector, document.body, name, { childList: childList, subtree: subtree })
     return elementAndObserver
   } else if (parentObserver !== null && !enabled) {
-    console.log(`[Old Shool YouTube]: disconnecting parentObserver ${name}`)
+    console.log(`[Old School YouTube]: disconnecting parentObserver ${name}`)
     parentObserver.disconnect()
     parentObserver = null
   }
-  // console.log(`[Old Shool YouTube]: awesome path triggered: parentObserver: ${parentObserver !== null}, enabled: ${enabled}`)
+  // console.log(`[Old School YouTube]: awesome path triggered: parentObserver: ${parentObserver !== null}, enabled: ${enabled}`)
 
   return { element: null, observer: parentObserver }
 }
 
-async function manageTargetObserver(targetSelector, enabled, targetObserver = null, parentElement, name, { childList = false, subtree = false } = {}) {
-  console.log(`[Old Shool YouTube]: manageTargetObserver triggered`)
+async function manageTargetObserver(targetSelector, enabled, targetObserver = null, parentElement, name, { childList = true, subtree = true } = {}) {
+  console.log(`[Old School YouTube]: manageTargetObserver triggered`)
 
   let results = null
   if (targetObserver === null && enabled) {
@@ -123,6 +147,9 @@ async function manageTargetObserver(targetSelector, enabled, targetObserver = nu
       hideElement(targetElement)
       targetObserver.disconnect()
       targetObserver = null
+      //!tests: run the parent observer again
+      //!change: this is not good function name, it represents just part of its functionality but managing observer part is not indicated in the name
+      findAndHideElement(observer)
     }
   } else if (targetObserver !== null && !enabled) {
     targetObserver.disconnect()
