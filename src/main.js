@@ -43,27 +43,8 @@ async function onNavigationChange() {
 
   const observerPromises = []
 
-  // version 1: no callback:
-  // observersData.forEach((observer) => {
-  //   const promise = (async () => {
-  //     const { name, enabled, parentSelector, targetSelector, parentObserver, targetObserver } = observer
-
-  //     const results = await manageParentObserver(parentSelector, enabled, parentObserver, name)
-  //     const parentElement = results.element
-  //     observer.parentObserver = results.observer
-
-  //     if (parentElement) {
-  //       console.log(`[Old School YouTube]: parentElement found, initializing manageTargetObserver for ${observer.name}`)
-  //       const results2 = await manageTargetObserver(targetSelector, enabled, targetObserver, parentElement, name)
-  //       observer.targetObserver = results2.observer
-  //     }
-  //   })()
-  //   observerPromises.push(promise)
-  // })
-
-  // version 2: callback function
-  observersData.forEach((observer) => {
-    const promise = findAndHideElement(observer)
+  observersData.forEach((observerData) => {
+    const promise = findAndHideElement(observerData)
     observerPromises.push(promise)
   })
 
@@ -71,23 +52,22 @@ async function onNavigationChange() {
   await Promise.all(observerPromises)
 }
 
-async function findAndHideElement(observer) {
-  console.log(`[Old School YouTube]: findAndHideElement called`)
-  const { name, enabled, parentSelector, targetSelector, parentObserver, targetObserver } = observer
+async function findAndHideElement(observerData) {
+  console.log(`[Old School YouTube]: findAndHideElement called for ${observerData.name}`)
+  const { name, enabled, parentSelector, targetSelector, parentObserver, targetObserver } = observerData
 
   const results = await manageParentObserver(parentSelector, enabled, parentObserver, name)
   const parentElement = results.element
-  observer.parentObserver = results.observer
+  observerData.parentObserver = results.observer
 
   if (parentElement) {
-    console.log(`[Old School YouTube]: parentElement found, initializing manageTargetObserver for ${observer.name}`)
-    const results2 = await manageTargetObserver(targetSelector, enabled, targetObserver, parentElement, name)
-    observer.targetObserver = results2.observer
+    console.log(`[Old School YouTube]: parentElement found, initializing manageTargetObserver for ${observerData.name}`)
+    await manageTargetObserver(targetSelector, enabled, targetObserver, parentElement, name)
   }
 }
 
 function hideElement(element) {
-  console.log(`[Old School YouTube]: If this logs i will be very happy =]`)
+  console.log(`[Old School YouTube]: hideElement func called =]`)
   consoleTranslation('element-hidden!', 'highlight blue')
 
   if (!element.hasAttribute('hidden')) {
@@ -108,8 +88,6 @@ function trackElementWithObserver(selector, target = document.body, observerName
       element = document.querySelector(selector)
       if (element) {
         resolve({ element: element, observer: observer })
-        observer.disconnect()
-        observer = null
       }
     })
     console.log(`[Old School YouTube]: childList: ${childList}, subtree: ${subtree}`)
@@ -147,12 +125,20 @@ async function manageTargetObserver(targetSelector, enabled, targetObserver = nu
       hideElement(targetElement)
       targetObserver.disconnect()
       targetObserver = null
-      //!tests: run the parent observer again
-      //!change: this is not good function name, it represents just part of its functionality but managing observer part is not indicated in the name
-      findAndHideElement(observer)
+      let observerData = findObserverDataForPathname(currentPathname)
+      console.log(`[Old School YouTube]: observerData fetched for observer: ${observerData.name}`)
+      runObserverChainAgain(observerData)
     }
   } else if (targetObserver !== null && !enabled) {
     targetObserver.disconnect()
     targetObserver = null
   }
+}
+
+function findObserverDataForPathname(currentPathname) {
+  return observersData.find((observer) => new RegExp(observer.regex).test(currentPathname))
+}
+
+function runObserverChainAgain(observerData) {
+  findAndHideElement(observerData)
 }

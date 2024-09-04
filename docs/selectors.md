@@ -72,6 +72,18 @@ This matters a lot for this extension as its code is heavily based on what eleme
 3 **`ytd-statement-banner-renderer`**
    -child of 2
 
+
+## Homepage Premium Videos Prompt:
+!important, probably would be best to user same grandparent/parent for Premium Account Prompt, and homepage shorts
+   grandparent:
+   ytd-rich-grid-renderer
+   parent:
+   #contents.ytd-rich-grid-renderer
+   target:
+   ytd-rich-section-renderer
+
+
+
 ## Shorts on Vide Page:
 its very rare for video page to display shorts
 
