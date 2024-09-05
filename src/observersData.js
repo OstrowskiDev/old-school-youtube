@@ -9,6 +9,8 @@ const observersData = [
     targetSelector: 'ytd-rich-section-renderer',
     parentObserver: null,
     targetObserver: null,
+    parentObsOptions: { childList: true, subtree: true },
+    targetObsOptions: { childList: true, subtree: true },
   },
   {
     name: 'resultsPageShorts',
@@ -18,6 +20,8 @@ const observersData = [
     targetSelector: 'ytd-reel-shelf-renderer',
     parentObserver: null,
     targetObserver: null,
+    parentObsOptions: { childList: true, subtree: true },
+    targetObsOptions: { childList: true, subtree: true },
   },
   {
     name: 'channelPageShorts',
@@ -27,6 +31,8 @@ const observersData = [
     targetSelector: 'ytd-reel-shelf-renderer',
     parentObserver: null,
     targetObserver: null,
+    parentObsOptions: { childList: true, subtree: true },
+    targetObsOptions: { childList: true, subtree: true },
   },
   {
     name: 'homepagePremiumMusicPrompt',
@@ -36,5 +42,7 @@ const observersData = [
     targetSelector: 'ytd-statement-banner-renderer',
     parentObserver: null,
     targetObserver: null,
+    parentObsOptions: { childList: true, subtree: true },
+    targetObsOptions: { childList: true, subtree: true },
   },
 ]
