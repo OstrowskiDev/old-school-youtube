@@ -134,15 +134,12 @@ async function manageTargetObserver(observer, parentElement) {
       hideElement(targetElement)
       disconnectObserver(observer, 'target')
       disconnectObserver(observer, 'parent')
-      runObserverChainAgain(observer)
+      // run target observer again
+      manageTargetObserver(observer, parentElement)
     }
   } else if (observer.targetObserver !== null && !observer.enabled) {
     disconnectObserver(observer, 'target')
   }
-}
-
-function runObserverChainAgain(observer) {
-  findAndHideElement(observer)
 }
 
 function disconnectObserver(observer, type) {
