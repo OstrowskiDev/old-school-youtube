@@ -24,10 +24,9 @@ function watchPathnameChanges() {
 
 async function onNavigationChange() {
   console.log(`[Old School YouTube]: Navigation triggered`)
-
-  // disable/enable observers according to the current pathname
   console.log(`[Old School YouTube]: currentPathname: ${currentPathname}`)
 
+  // disable/enable observers according to the current pathname
   observersData.forEach((observer) => {
     try {
       const regex = new RegExp(observer.regex)
@@ -57,7 +56,7 @@ async function onNavigationChange() {
 
 async function findAndHideElement(observer) {
   console.log(`[Old School YouTube]: findAndHideElement called for ${observer.name}`)
-  const parentElement = await manageParentObserver(observer.parentSelector, observer.enabled, observer.parentObserver, observer.name)
+  const parentElement = await manageParentObserver(observer)
 
   if (parentElement) {
     console.log(`[Old School YouTube]: parentElement found, initializing manageTargetObserver for ${observer.name}`)
@@ -94,27 +93,31 @@ function trackElementWithObserver(observerName, selector, target = document.body
 }
 
 async function manageParentObserver(observer) {
-  let targetElement = null
+  console.log(`[Old School YouTube]: manageParentObserver called for ${observer.name}. parentObserver is null: ${observer.parentObserver === null}, observer is enabled: ${observer.enabled}, observerData is true: ${!!observer}. observer.targetObserver: ${observer.targetObserver}, observer.parentObserver: ${observer.parentObserver}`)
+
+  let parentElement = null
 
   if (observer.parentObserver === null && observer.enabled) {
     console.log(`[Old School YouTube]: creating parentObserver ${observer.name}`)
 
-    const { newObserver, element } = await trackElementWithObserver(observer.name, observer.parentSelector, document.body, observer.parentObsOptions)
+    const combinedSelector = `${observer.parentSelector}${nonHiddenElements}`
+
+    const { newObserver, element } = await trackElementWithObserver(observer.name, combinedSelector, document.body, observer.parentObsOptions)
 
     observer.parentObserver = newObserver
-    targetElement = element
+    parentElement = element
 
-    if (targetElement) {
-      disconnectObserver(observer.parentObserver)
-      return targetElement
+    if (parentElement) {
+      disconnectObserver(observer, 'parent')
+      return parentElement
     }
   } else if (observer.parentObserver !== null && !observer.enabled) {
     console.log(`[Old School YouTube]: disconnecting parentObserver ${observer.name}`)
 
-    disconnectObserver(observer.parentObserver)
+    disconnectObserver(observer, 'parent')
   }
 
-  return targetElement
+  return parentElement
 }
 
 async function manageTargetObserver(observer, parentElement) {
@@ -129,11 +132,12 @@ async function manageTargetObserver(observer, parentElement) {
 
     if (targetElement) {
       hideElement(targetElement)
-      disconnectObserver(observer.targetObserver)
+      disconnectObserver(observer, 'target')
+      disconnectObserver(observer, 'parent')
       runObserverChainAgain(observer)
     }
   } else if (observer.targetObserver !== null && !observer.enabled) {
-    disconnectObserver(observer.targetObserver)
+    disconnectObserver(observer, 'target')
   }
 }
 
@@ -141,23 +145,32 @@ function runObserverChainAgain(observer) {
   findAndHideElement(observer)
 }
 
-function disconnectObserver(observerInstance) {
-  observerInstance.disconnect()
-  observerInstance = null
+function disconnectObserver(observer, type) {
+  if (type === 'target' && observer.targetObserver !== null) {
+    observer.targetObserver.disconnect()
+    observer.targetObserver = null
+    console.log(`[Old School YouTube]: targetObserver disconnected for ${observer.name}`)
+  } else if (type === 'parent' && observer.parentObserver !== null) {
+    observer.parentObserver.disconnect()
+    observer.parentObserver = null
+    console.log(`[Old School YouTube]: parentObserver disconnected for ${observer.name}`)
+  } else {
+    console.log(`[Old School YouTube]: disconnectObserver called for ${observer.name}, type: ${type}, with observer instance === null. observer.targetObserver: ${observer.targetObserver}, observer.parentObserver: ${observer.parentObserver}`)
+  }
 }
 
-function getObserverDataByName(name) {
-  const observerData = observersData.find((observer) => observer.name === name)
-  if (!observerData) {
-    console.error(`[Old School YouTube]: Observer data not found for ${name}`)
-  }
-  return observerData
-}
+// function getObserverDataByName(name) {
+//   const observerData = observersData.find((observer) => observer.name === name)
+//   if (!observerData) {
+//     console.error(`[Old School YouTube]: Observer data not found for ${name}`)
+//   }
+//   return observerData
+// }
 
-function getObserverDataByPathname(currentPathname) {
-  const observer = observersData.find((observer) => new RegExp(observer.regex).test(currentPathname))
-  if (!observer) {
-    console.error(`[Old School YouTube]: Observer data not found for ${currentPathname}`)
-  }
-  return observer
-}
+// function getObserverDataByPathname(currentPathname) {
+//   const observer = observersData.find((observer) => new RegExp(observer.regex).test(currentPathname))
+//   if (!observer) {
+//     console.error(`[Old School YouTube]: Observer data not found for ${currentPathname}`)
+//   }
+//   return observer
+// }
