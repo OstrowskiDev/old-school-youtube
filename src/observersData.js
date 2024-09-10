@@ -56,4 +56,15 @@ const observersData = [
     parentObsOptions: { childList: true, subtree: true },
     targetObsOptions: { childList: true, subtree: true },
   },
+  {
+    name: 'VideoPageShorts',
+    enabled: false,
+    regex: '^/watch',
+    parentSelector: '#items.ytd-watch-next-secondary-results-renderer',
+    targetSelector: 'ytd-reel-shelf-renderer',
+    parentObserver: null,
+    targetObserver: null,
+    parentObsOptions: { childList: true, subtree: true },
+    targetObsOptions: { childList: true, subtree: true },
+  },
 ]
