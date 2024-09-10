@@ -45,4 +45,15 @@ const observersData = [
     parentObsOptions: { childList: true, subtree: true },
     targetObsOptions: { childList: true, subtree: true },
   },
+  {
+    name: 'subscriptionPageShorts',
+    enabled: false,
+    regex: '^/feed',
+    parentSelector: 'ytd-rich-grid-renderer',
+    targetSelector: 'ytd-rich-section-renderer',
+    parentObserver: null,
+    targetObserver: null,
+    parentObsOptions: { childList: true, subtree: true },
+    targetObsOptions: { childList: true, subtree: true },
+  },
 ]

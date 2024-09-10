@@ -155,19 +155,3 @@ function disconnectObserver(observer, type) {
     console.log(`[Old School YouTube]: disconnectObserver called for ${observer.name}, type: ${type}, with observer instance === null. observer.targetObserver: ${observer.targetObserver}, observer.parentObserver: ${observer.parentObserver}`)
   }
 }
-
-// function getObserverDataByName(name) {
-//   const observerData = observersData.find((observer) => observer.name === name)
-//   if (!observerData) {
-//     console.error(`[Old School YouTube]: Observer data not found for ${name}`)
-//   }
-//   return observerData
-// }
-
-// function getObserverDataByPathname(currentPathname) {
-//   const observer = observersData.find((observer) => new RegExp(observer.regex).test(currentPathname))
-//   if (!observer) {
-//     console.error(`[Old School YouTube]: Observer data not found for ${currentPathname}`)
-//   }
-//   return observer
-// }
