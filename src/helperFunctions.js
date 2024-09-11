@@ -1,5 +1,3 @@
-console.log(`[Old Shool YouTube]: helper function file loaded`)
-
 function consoleTranslation(message, style = '') {
   let messageStyle
   switch (style) {
@@ -16,8 +14,21 @@ function consoleTranslation(message, style = '') {
   return console.log(`%c${chrome.i18n.getMessage(message)}`, messageStyle)
 }
 
-// function printObservers() {
-//   observersData.forEach((observer) => {
-//     console.log(`Name: ${observer.name}, Enabled: ${observer.enabled}, ParentObserver is active: ${observer.parentObserver !== null}, TargetObserver is active: ${observer.targetObserver !== null}`)
-//   })
-// }
+const logger = {
+  prefix: '[Old School YouTube] ',
+  log: function (...message) {
+    if (environment === 'development') {
+      console.log(this.prefix + message.join(' '))
+    }
+  },
+  error: function (...message) {
+    console.error(this.prefix + message.join(' '))
+  },
+  important: function (...message) {
+    if (environment === 'development') {
+      console.log('%c' + this.prefix + message.join(' '), 'color: blue; font-weight: bold;')
+    }
+  },
+}
+
+logger.important(`helper functions file loaded`)
