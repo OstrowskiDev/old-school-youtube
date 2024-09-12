@@ -26,7 +26,7 @@ function watchPathnameChanges() {
 
 async function onNavigationChange() {
   logger.log(`Navigation triggered`)
-  logger.log(`currentPathname: ${currentPathname}`)
+  logger.log(`The currentPathname value: ${currentPathname}`)
 
   // disable/enable observers according to the current pathname
   observersData.forEach((observer) => {
@@ -57,17 +57,17 @@ async function onNavigationChange() {
 }
 
 async function findAndHideElement(observer) {
-  logger.log(`findAndHideElement called for ${observer.name}`)
+  logger.log(`The findAndHideElement called for ${observer.name}`)
   const parentElement = await manageParentObserver(observer)
 
   if (parentElement) {
-    logger.log(`parentElement found, initializing manageTargetObserver for ${observer.name}`)
+    logger.log(`The parentElement found, initializing manageTargetObserver for ${observer.name}`)
     await manageTargetObserver(observer, parentElement)
   }
 }
 
 function hideElement(element) {
-  logger.important(`hideElement func called`)
+  logger.important(`The hideElement func called`)
   consoleTranslation('element-hidden!', 'highlight blue')
 
   if (!element.hasAttribute('hidden')) {
@@ -76,7 +76,7 @@ function hideElement(element) {
 }
 
 function trackElementWithObserver(observerName, selector, target = document.body, options) {
-  logger.log(`trackElementWithObserver triggered, selector: ${observerName}`)
+  logger.log(`The trackElementWithObserver triggered, selector: ${observerName}`)
 
   return new Promise((resolve) => {
     let newObserver = null
@@ -95,12 +95,12 @@ function trackElementWithObserver(observerName, selector, target = document.body
 }
 
 async function manageParentObserver(observer) {
-  logger.log(`manageParentObserver called for ${observer.name}. parentObserver is null: ${observer.parentObserver === null}, observer is enabled: ${observer.enabled}, observerData is true: ${!!observer}. observer.targetObserver: ${observer.targetObserver}, observer.parentObserver: ${observer.parentObserver}`)
+  logger.log(`The manageParentObserver called for ${observer.name}. parentObserver is null: ${observer.parentObserver === null}, observer is enabled: ${observer.enabled}, observerData is true: ${!!observer}. observer.targetObserver: ${observer.targetObserver}, observer.parentObserver: ${observer.parentObserver}`)
 
   let parentElement = null
 
   if (observer.parentObserver === null && observer.enabled) {
-    logger.log(`creating parentObserver ${observer.name}`)
+    logger.log(`Creating parentObserver ${observer.name}`)
 
     const combinedSelector = `${observer.parentSelector}${nonHiddenElements}`
 
@@ -114,7 +114,7 @@ async function manageParentObserver(observer) {
       return parentElement
     }
   } else if (observer.parentObserver !== null && !observer.enabled) {
-    logger.log(`disconnecting parentObserver ${observer.name}`)
+    logger.log(`Disconnecting parentObserver ${observer.name}`)
 
     disconnectObserver(observer, 'parent')
   }
@@ -124,7 +124,7 @@ async function manageParentObserver(observer) {
 
 async function manageTargetObserver(observer, parentElement) {
   if (observer.targetObserver === null && observer.enabled) {
-    logger.log(`creating targetObserver ${observer.name}`)
+    logger.log(`Creating targetObserver ${observer.name}`)
 
     const combinedSelector = `${observer.targetSelector}${nonHiddenElements}`
     const { newObserver, element } = await trackElementWithObserver(observer.name, combinedSelector, parentElement, observer.targetObsOptions)
@@ -148,12 +148,12 @@ function disconnectObserver(observer, type) {
   if (type === 'target' && observer.targetObserver !== null) {
     observer.targetObserver.disconnect()
     observer.targetObserver = null
-    logger.log(`targetObserver disconnected for ${observer.name}`)
+    logger.log(`The targetObserver disconnected for ${observer.name}`)
   } else if (type === 'parent' && observer.parentObserver !== null) {
     observer.parentObserver.disconnect()
     observer.parentObserver = null
-    logger.log(`parentObserver disconnected for ${observer.name}`)
+    logger.log(`The parentObserver disconnected for ${observer.name}`)
   } else {
-    logger.log(`disconnectObserver called for ${observer.name}, type: ${type}, with observer instance === null. observer.targetObserver: ${observer.targetObserver}, observer.parentObserver: ${observer.parentObserver}`)
+    logger.log(`The disconnectObserver called for ${observer.name}, type: ${type}, with observer instance === null. observer.targetObserver: ${observer.targetObserver}, observer.parentObserver: ${observer.parentObserver}`)
   }
 }
