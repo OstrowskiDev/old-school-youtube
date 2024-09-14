@@ -1,12 +1,10 @@
 {
   "extensionName": {"message": "Old School YouTube"},
   "extensionDescription": {"message": "Usuwa Shorty i sekcję Premium z strony głownej YouTube, przywracając jej wygląd z wcześniejszych lat"},
-  "extension-initialized": {"message": "[Old School YouTube]: Rozszerzenie uruchomione!"},
-  "shorts-hidden-on-homepage": {"message": "[Old School YouTube]: Shorty na stronie głównej zostały ukryte!"},
-  "premium-music-prompt-hidden-on-homepage": {"message": "[Old School YouTube]: Sekcja Premium Music na stronie głównej została ukryta!"},
-  "shorts-hidden-on-search-page": {"message": "[Old School YouTube]: Shorty na stronie wyników wyszukiwania zostały ukryte!"},
-  "shorts-hidden-on-channel-page": {"message": "[Old School YouTube]: Shorty na stronie kanału zostały ukryte!"},
-  "element-hidden!": {"message": "[Old School YouTube]: Element został ukryty!"}
-
-
+  "extension_initialized": {"message": "[Old School YouTube]: Rozszerzenie uruchomione!"},
+  "shorts_hidden_on_homepage": {"message": "[Old School YouTube]: Shorty na stronie głównej zostały ukryte!"},
+  "premium_music_prompt_hidden_on_homepage": {"message": "[Old School YouTube]: Sekcja Premium Music na stronie głównej została ukryta!"},
+  "shorts_hidden_on_search_page": {"message": "[Old School YouTube]: Shorty na stronie wyników wyszukiwania zostały ukryte!"},
+  "shorts_hidden_on_channel_page": {"message": "[Old School YouTube]: Shorty na stronie kanału zostały ukryte!"},
+  "element_hidden": {"message": "[Old School YouTube]: Element został ukryty!"}
 }

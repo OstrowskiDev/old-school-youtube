@@ -40,7 +40,7 @@ let hidePremiumMusicPromptOnHomePage = true
 let hidePremiumAccountPromptOnHomePage = true
 let hideShortsOnVideoPage = true
 
-consoleTranslation('extension-initialized', 'highlight blue')
+consoleTranslation('extension_initialized', 'highlight blue')
 listenForPathnameChange()
 hideContentByPathname()
 
@@ -152,7 +152,7 @@ function hideHomePageShorts(hide = true) {
     .then((element) => {
       if (element != null) {
         hideElement(hide, element)
-        consoleTranslation('shorts-hidden-on-homepage', 'highlight green')
+        consoleTranslation('shorts_hidden_on_homepage', 'highlight green')
       }
     })
     .catch((error) => {
@@ -174,7 +174,7 @@ function hideHomePagePremiumMusic(hide = true) {
     .then((element) => {
       if (element != null) {
         hideElement(hide, element)
-        consoleTranslation('premium-music-prompt-hidden-on-homepage', 'highlight green')
+        consoleTranslation('premium_music_prompt_hidden_on_homepage', 'highlight green')
       }
     })
     .catch((error) => {
@@ -214,7 +214,7 @@ async function hideOneShortsContainerOnSearchPage(hide = true) {
     const element = await waitForElement(searchPageShortsSelector, wrapperElement1, searchPageShortsObserverControl, { childList: true, subtree: true })
 
     if (element != null) {
-      consoleTranslation('shorts-hidden-on-search-page', 'highlight green')
+      consoleTranslation('shorts_hidden_on_search_page', 'highlight green')
       hideElement(hide, element)
     }
   } catch (error) {
@@ -237,7 +237,7 @@ function hideChannelPageShorts(hide = true) {
     .then((element) => {
       if (element != null) {
         hideElement(hide, element)
-        consoleTranslation('shorts-hidden-on-channel-page', 'highlight green')
+        consoleTranslation('shorts_hidden_on_channel_page', 'highlight green')
       }
     })
     .catch((error) => {

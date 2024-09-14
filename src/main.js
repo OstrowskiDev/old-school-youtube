@@ -1,4 +1,4 @@
-consoleTranslation('extension-initialized', 'highlight blue')
+consoleTranslation('extension_initialized', 'highlight blue')
 
 const environment = 'production' // switch between: "development", "production"
 
@@ -68,7 +68,7 @@ async function findAndHideElement(observer) {
 
 function hideElement(element) {
   logger.important(`The hideElement func called`)
-  consoleTranslation('element-hidden!', 'highlight blue')
+  consoleTranslation('element_hidden', 'highlight blue')
 
   if (!element.hasAttribute('hidden')) {
     element.setAttribute('hidden', true)

@@ -1,10 +1,10 @@
 {
   "extensionName": {"message": "Old School YouTube"},
   "extensionDescription": {"message": "Removes Shorts and Movies from YouTube homepage to make it feel more like its back to 2010"},
-  "extension-initialized": {"message": "[Old School YouTube]: Extension initialized!"},
-  "shorts-hidden-on-homepage": {"message": "[Old School YouTube]: Shorts on homepage hidden!"},
-  "premium-music-prompt-hidden-on-homepage": {"message": "[Old School YouTube]: Premium Music section on homepage hidden!"},
-  "shorts-hidden-on-search-page": {"message": "[Old School YouTube]: Shorts on search page hidden!"},
-  "shorts-hidden-on-channel-page": {"message": "[Old School YouTube]: Shorts on channel page hidden!"},
-  "element-hidden!": {"message": "[Old School YouTube]: Element hidden!"}
+  "extension_initialized": {"message": "[Old School YouTube]: Extension initialized!"},
+  "shorts_hidden_on_homepage": {"message": "[Old School YouTube]: Shorts on homepage hidden!"},
+  "premium_music_prompt_hidden_on_homepage": {"message": "[Old School YouTube]: Premium Music section on homepage hidden!"},
+  "shorts_hidden_on_search_page": {"message": "[Old School YouTube]: Shorts on search page hidden!"},
+  "shorts_hidden_on_channel_page": {"message": "[Old School YouTube]: Shorts on channel page hidden!"},
+  "element_hidden": {"message": "[Old School YouTube]: Element hidden!"}
 }
