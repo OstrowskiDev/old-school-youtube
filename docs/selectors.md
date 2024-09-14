@@ -82,9 +82,17 @@ This matters a lot for this extension as its code is heavily based on what eleme
    target:
    ytd-rich-section-renderer
 
+   ## Shorts on Subscription page:
+
+   1. **'ytd-browse'**
+   - recommended as parent selector
+
+   2. **'ytd-rich-grid-renderer'**
+   - not recommended to use as a parent selector, on smaller desktop screens may not render at all or get disabled by yt (children will be moved to other parent)
 
 
-## Shorts on Vide Page:
+
+## Shorts on Video Page:
 its very rare for video page to display shorts
 
 1. **`#contents.ytd-item-section-renderer`**

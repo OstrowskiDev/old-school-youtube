@@ -49,7 +49,7 @@ const observersData = [
     name: 'subscriptionPageShorts',
     enabled: false,
     regex: '^/feed',
-    parentSelector: 'ytd-rich-grid-renderer',
+    parentSelector: 'ytd-browse',
     targetSelector: 'ytd-rich-section-renderer',
     parentObserver: null,
     targetObserver: null,
