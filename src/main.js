@@ -1,6 +1,6 @@
 consoleTranslation('extension-initialized', 'highlight blue')
 
-const environment = 'development' // or "production"
+const environment = 'production' // switch between: "development", "production"
 
 let lastPathname = window.location.pathname
 let currentPathname = window.location.pathname
