@@ -74,7 +74,6 @@ This matters a lot for this extension as its code is heavily based on what eleme
 
 
 ## Homepage Premium Videos Prompt:
-!important, probably would be best to user same grandparent/parent for Premium Account Prompt, and homepage shorts
    grandparent:
    ytd-rich-grid-renderer
    parent:
@@ -82,7 +81,8 @@ This matters a lot for this extension as its code is heavily based on what eleme
    target:
    ytd-rich-section-renderer
 
-   ## Shorts on Subscription page:
+
+## Shorts on Subscription page:
 
    1. **'ytd-browse'**
    - recommended as parent selector
@@ -91,9 +91,8 @@ This matters a lot for this extension as its code is heavily based on what eleme
    - not recommended to use as a parent selector, on smaller desktop screens may not render at all or get disabled by yt (children will be moved to other parent)
 
 
-
 ## Shorts on Video Page:
-its very rare for video page to display shorts
+Video page seems to display shorts section based on how many times user was watching shorts in the past. Because of that users that have avoided shorts may not see this section at all/very rarely. 
 
 1. **`#contents.ytd-item-section-renderer`**
    - top level container
@@ -103,9 +102,4 @@ its very rare for video page to display shorts
 
 ## Important!:
 
-**`:not([hidden]):not([style*="display: none"])`** its recommended to add this selector to targeted elements (Top-levels containers don't need it). YT SPA will make some of its elements hidden between page navigations. This ensures that observers will not watch those inactive elements. 
-
-## Tests:
-Section for ideas regarding selectors:
-
-**`#content`** selector is used as common ancestor on many different pathnames. If this is always true for every pathname that contains shorts it could be used to simplify the code significantly.
+**`:not([hidden]):not([style*="display: none"])`** selector is added to both parent and target observer elements. Reason: YT SPA will make some of its elements hidden between page navigations. This ensures that observers will not accidentally target inactive elements.
