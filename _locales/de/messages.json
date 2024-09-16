@@ -1,9 +1,6 @@
 {
   "extensionName": {"message": "Old School YouTube"},
-  "extensionDescription": {"message": "Entfernt Kurzfilme und Filme von der YouTube-Startseite, damit es sich eher wie im Jahr 2010 anfühlt"},
+  "extensionDescription": {"message": "Bringt das ursprüngliche YouTube-Layout zurück und entfernt Shorts und Anfragen nach Premium-Inhalten. Sie können weiterhin Shorts im Abschnitt „youtube.com/shorts“ ansehen."},
   "extension_initialized": {"message": "[Old School YouTube]: Erweiterung initialisiert!"},
-  "shorts_hidden_on_homepage": {"message": "[Old School YouTube]: Shorts auf der Startseite ausgeblendet!"},
-  "premium_music_prompt_hidden_on_homepage": {"message": "[Old School YouTube]: Premium-Musikbereich auf der Startseite ausgeblendet!"},
-  "shorts_hidden_on_search_page": {"message": "[Old School YouTube]: Shorts auf der Suchseite ausgeblendet!"},
-  "shorts_hidden_on_channel_page": {"message": "[Old School YouTube]: Shorts auf Kanalseite ausgeblendet!"}
+  "elements_hidden": {"message": "[Old School YouTube]:Unnötige Elemente wurden ausgeblendet!!"}
 }

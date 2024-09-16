@@ -68,7 +68,7 @@ async function findAndHideElement(observer) {
 
 function hideElement(element) {
   logger.important(`The hideElement func called`)
-  consoleTranslation('element_hidden', 'highlight blue')
+  consoleTranslation('elements_hidden', 'highlight blue')
 
   if (!element.hasAttribute('hidden')) {
     element.setAttribute('hidden', true)
