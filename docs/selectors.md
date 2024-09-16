@@ -7,12 +7,8 @@ This matters a lot for this extension as its code is heavily based on what eleme
 1. **`#contents.ytd-rich-grid-renderer`**
    - Top-level container for content on homepage. Contains videos, shorts, prompts.
 2. **`ytd-rich-section-renderer`**
-   - child of 1, parent of 3
-   - currently contains only shorts
-   - currently only one element with this selector is rendered on home page
-3. **`content.ytd-rich-section-renderer`**
-   - child of 2
-   - dedicated for rendering shorts
+   - currently contains only shorts / and premium video prompts
+   - multiple elements can be rendered in homepage, especially if user had history of watching shorts videos
 
 
 ## Search Results Page Shorts:
@@ -57,35 +53,32 @@ This matters a lot for this extension as its code is heavily based on what eleme
    - Top-level container for content on homepage. Contains videos, shorts, prompts.
 
 2. **'ytd-statement-banner-renderer'**
-   - Contains only premium music prompt
+   - Contains only premium music prompt.
    - Is rendered very rarely. Users may encounter it once or twice a week.
 
 
 ## Homepage Premium Account Prompt:
+Is rendered very rarely, approximately once/twice a month.
 
-1. **`ytd-rich-section-renderer`**
-   - top level container for premium account prompt
-   - is rendered very rarely, approximately once a month 
-   - rendered once on homepage
-2 **`#content.ytd-rich-section-renderer`**
-   - child of 1
-3 **`ytd-statement-banner-renderer`**
-   -child of 2
+1. **`#contents.ytd-rich-grid-renderer`**
+   - Currently testing this element as common parent for Premium prompts (Premium Account, Premium Music Section).
+
+2 **`ytd-statement-banner-renderer`**
+   - Commonly used as container for homepage prompts: premium account/premium music/premium videos
 
 
 ## Homepage Premium Videos Prompt:
-   grandparent:
-   ytd-rich-grid-renderer
-   parent:
-   #contents.ytd-rich-grid-renderer
-   target:
-   ytd-rich-section-renderer
+   - same parent and target elements as homepage shorts (description in Homepage Shorts section)
+
+   1. **`#contents.ytd-rich-grid-renderer`**
+
+   2. **`ytd-rich-section-renderer`**
 
 
 ## Shorts on Subscription page:
 
    1. **'ytd-browse'**
-   - recommended as parent selector
+   - recommended as parent selector, elements lower in HTML tree are temporarily disabled during navigation and their children are moved to other HTML elements. This may cause observers to target wrong element or not being able to find parent element at all.
 
    2. **'ytd-rich-grid-renderer'**
    - not recommended to use as a parent selector, on smaller desktop screens may not render at all or get disabled by yt (children will be moved to other parent)

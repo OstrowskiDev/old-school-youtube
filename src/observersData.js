@@ -3,6 +3,7 @@ console.log(`[Old Shool YouTube]: observersData loaded`)
 const observersData = [
   {
     name: 'homepageShorts',
+    description: 'Targets shorts and Premium Videos Prompt on the homepage',
     enabled: false,
     regex: '^/$',
     parentSelector: '#contents.ytd-rich-grid-renderer',
@@ -13,7 +14,8 @@ const observersData = [
     targetObsOptions: { childList: true, subtree: true },
   },
   {
-    name: 'homepagePremiumMusicPrompt',
+    name: 'homepagePremiumPrompts',
+    description: 'Targets following prompts on homepage: Premium Account, Premium Music',
     enabled: false,
     regex: '^/$',
     parentSelector: '#contents.ytd-rich-grid-renderer',
