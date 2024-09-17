@@ -69,4 +69,15 @@ const observersData = [
     parentObsOptions: { childList: true, subtree: true },
     targetObsOptions: { childList: true, subtree: true },
   },
+  {
+    name: 'HistoryPageShorts',
+    enabled: false,
+    regex: '^/feed/history',
+    parentSelector: '#contents.ytd-section-list-renderer',
+    targetSelector: 'ytd-reel-shelf-renderer',
+    parentObserver: null,
+    targetObserver: null,
+    parentObsOptions: { childList: true, subtree: true },
+    targetObsOptions: { childList: true, subtree: true },
+  },
 ]
