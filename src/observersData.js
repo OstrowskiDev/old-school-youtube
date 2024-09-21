@@ -39,7 +39,7 @@ const observersData = [
   {
     name: 'channelPageShorts',
     enabled: false,
-    regex: '^/@',
+    regex: '^/@|^/user/|^/c/',
     parentSelector: 'ytd-browse',
     targetSelector: 'ytd-reel-shelf-renderer',
     parentObserver: null,

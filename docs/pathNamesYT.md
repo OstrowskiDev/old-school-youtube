@@ -18,3 +18,9 @@ const userPattern = /\/user\/([^\/]+)/;
 const atPattern = /\/@([^\/]+)/;
 const customPattern = /\/c\/([^\/]+)/;
 const legacyPattern = /\/([^\/]+)/;
+
+## Strings for RegExp constructor:
+regex: '^/@',
+regex: '^/user/',
+regex: '^/c/',
+combined: ^/@|^/user/|^/c/

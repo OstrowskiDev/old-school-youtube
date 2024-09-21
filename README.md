@@ -44,6 +44,7 @@ Just add this extension to your Firefox/Chrome browser:
 This extension removes following elements from YouTube™ site:
 - shorts from: homepage, search results, video pages, channel pages, subscriptions page and history page.
 - premium content prompts from homepage.
+
 This extension does not remove Shorts from menu and you will be still able to open shorts page and watch sorts there.
 
 ## Future features
