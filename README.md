@@ -8,7 +8,7 @@
 </h1>
 <p align="center">
   <sub>
-    Mozilla's Firefox and Chrome Extension
+    Mozilla's Firefox and Chrome desktop Extension
   </sub>
 </p>
 
@@ -18,7 +18,7 @@
 
 This repository holds Old School YouTube™ Firefox/Chrome extension files.
 
-This extension aims to hide non video content from YouTube™'s pages. Focusing mainly on Shorts Section and Premium Content, that can only be temporary disabled. Thus giving back to the users ability to decide what content they want to see on YouTube™.
+Old School YouTube™ aims to hide non video content from YouTube™'s pages. Focusing mainly on Shorts Section and Prompts, that can only be temporary disabled. Thus giving back to the users ability to decide what content they want to see on YouTube™.
 
 ## Important!
 Currently this extension __supports only desktop__ devices.
@@ -43,9 +43,9 @@ Just add this extension to your Firefox/Chrome browser:
 ## What exactly this extension does?
 This extension removes following elements from YouTube™ site:
 - shorts from: homepage, search results, video pages, channel pages, subscriptions page and history page.
-- premium content prompts from homepage.
+- prompts not related to videos form the homepage.
 
-This extension does not remove Shorts from menu and you will be still able to open shorts page and watch sorts there.
+This extension does not remove ability to watch Shorts. Only aims to give you decision when you want to watch them. Shorts can be watched in their respective page found in YouTube™ menu: top left part of the window, between main and subscriptions. 
 
 ## Future features
 
