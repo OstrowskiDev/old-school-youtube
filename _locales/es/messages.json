@@ -1,5 +1,5 @@
 {
-  "extensionDescription": {"message": "Esta extensión tiene como objetivo recuperar la experiencia de YouTube™ de los días en que se centraba principalmente en contenido de vídeo. Entonces: sin cortos, sin indicaciones. Aún podrás ver cortos en sus respectivas páginas, pero ya no aparecerán en otras páginas. Se eliminarán todas las indicaciones que no estén directamente relacionadas con los videos."},
+  "extensionDescription": {"message": "Recupera la antigua experiencia de usuario de YouTube™ al eliminar cortos e indicaciones de las páginas de YouTube™. Los cortos todavía están disponibles en el sitio dedicado."},
   "extension_initialized": {"message": "[Old School YouTube]: ¡Extensión inicializada!"},
   "elements_hidden": {"message": "[Old School YouTube]: ¡Se han ocultado elementos innecesarios!"}
 }

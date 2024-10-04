@@ -1,5 +1,5 @@
 {
-  "extensionDescription": {"message": "Ziel dieser Erweiterung ist es, das YouTube™ Erlebnis von damals wiederherzustellen, als es sich hauptsächlich auf Videoinhalte konzentrierte. Also: keine Shorts, keine Aufforderungen. Sie können sich die Shorts weiterhin auf der jeweiligen Seite ansehen, sie werden jedoch nicht mehr auf anderen Seiten angezeigt. Alle Aufforderungen, die nicht direkt mit Videos in Zusammenhang stehen, werden entfernt."},
+  "extensionDescription": {"message": "Bringt das YouTube™ Benutzererlebnis aus alten Zeiten zurück, indem Shorts und Prompts von YouTube™ Seiten entfernt werden. Shorts sind weiterhin auf der entsprechenden Seite verfügbar."},
   "extension_initialized": {"message": "[Old School YouTube]: Erweiterung initialisiert!"},
   "elements_hidden": {"message": "[Old School YouTube]:Unnötige Elemente wurden ausgeblendet!!"}
 }
