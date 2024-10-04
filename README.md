@@ -2,9 +2,9 @@
 
 <h1 align="center">
   <sub>
-    <img src="./icons/appico.svg" alt="Old School YouTube" height="38" width="38">
+    <img src="./icons/appico.svg" alt="Old School Experience for YouTube" height="38" width="38">
   </sub>
-  Old School YouTube™
+  Old School Experience for YouTube™
 </h1>
 <p align="center">
   <sub>
@@ -16,9 +16,9 @@
 
 ## Overview
 
-This repository holds Old School YouTube™ Firefox/Chrome extension files.
+This repository holds Old School Experience for YouTube™ Firefox/Chrome extension files.
 
-Old School YouTube™ aims to hide non video content from YouTube™'s pages. Focusing mainly on Shorts Section and Prompts, that can only be temporary disabled. Thus giving back to the users ability to decide what content they want to see on YouTube™.
+Old School Experience for YouTube™ aims to bring back the experience of YouTube™ from days when it was focused mainly on video content. So: no shorts, no prompts. You will still be able to watch shorts in theirs respective page, but they will no longer get displayed on other pages. All prompts not directly related to videos will be removed.
 
 ## Important!
 Currently this extension __supports only desktop__ devices.
@@ -36,7 +36,7 @@ For chrome version [visit official Chrome extensions website](https://chromewebs
 ## How to use
 
 Just add this extension to your Firefox/Chrome browser:
-- Go to Old School YouTube™ extension site, links in Downloads section above.
+- Go to Old School Experience for YouTube™ extension site, links in Downloads section above.
 - Click "Add to Firefox/Chrome" button.
 - Enjoy!
 
