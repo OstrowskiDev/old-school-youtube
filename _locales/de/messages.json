@@ -1,5 +1,4 @@
 {
-  "extensionName": {"message": "Old School YouTube"},
   "extensionDescription": {"message": "Bringt das ursprüngliche YouTube-Layout zurück und entfernt Shorts und Anfragen nach Premium-Inhalten. Sie können weiterhin Shorts im Abschnitt „youtube.com/shorts“ ansehen."},
   "extension_initialized": {"message": "[Old School YouTube]: Erweiterung initialisiert!"},
   "elements_hidden": {"message": "[Old School YouTube]:Unnötige Elemente wurden ausgeblendet!!"}

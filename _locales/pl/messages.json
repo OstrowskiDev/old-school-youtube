@@ -1,5 +1,4 @@
 {
-  "extensionName": {"message": "Old School YouTube"},
   "extensionDescription": {"message": "Przywraca layout YouTuba z wczesnych lat, usuwając shorty i zapytania o kontent premium. Pozostawia możliwość oglądania shortów w sekcji 'youtube.com/shorts'."},
   "extension_initialized": {"message": "[Old School YouTube]: Rozszerzenie uruchomione!"},
   "elements_hidden": {"message": "[Old School YouTube]: Zbędne elementy zostały ukryte!"}

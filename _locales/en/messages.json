@@ -1,5 +1,4 @@
 {
-  "extensionName": {"message": "Old School YouTube"},
   "extensionDescription": {"message": "Brings back the early YouTube layout, removing shorts and requests for premium content. You still can watch shorts in the 'youtube.com/shorts' section."},
   "extension_initialized": {"message": "[Old School YouTube]: Extension initialized!"},
   "elements_hidden": {"message": "[Old School YouTube]: Unnecessary elements have been hidden!"}
