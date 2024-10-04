@@ -1,5 +1,5 @@
 {
-  "extensionDescription": {"message": "Bringt das ursprüngliche YouTube-Layout zurück und entfernt Shorts und Anfragen nach Premium-Inhalten. Sie können weiterhin Shorts im Abschnitt „youtube.com/shorts“ ansehen."},
+  "extensionDescription": {"message": "Ziel dieser Erweiterung ist es, das YouTube™ Erlebnis von damals wiederherzustellen, als es sich hauptsächlich auf Videoinhalte konzentrierte. Also: keine Shorts, keine Aufforderungen. Sie können sich die Shorts weiterhin auf der jeweiligen Seite ansehen, sie werden jedoch nicht mehr auf anderen Seiten angezeigt. Alle Aufforderungen, die nicht direkt mit Videos in Zusammenhang stehen, werden entfernt."},
   "extension_initialized": {"message": "[Old School YouTube]: Erweiterung initialisiert!"},
   "elements_hidden": {"message": "[Old School YouTube]:Unnötige Elemente wurden ausgeblendet!!"}
 }

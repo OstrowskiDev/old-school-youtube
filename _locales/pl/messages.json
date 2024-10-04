@@ -1,5 +1,5 @@
 {
-  "extensionDescription": {"message": "Przywraca layout YouTuba z wczesnych lat, usuwając shorty i zapytania o kontent premium. Pozostawia możliwość oglądania shortów w sekcji 'youtube.com/shorts'."},
+  "extensionDescription": {"message": "To rozszerzenie ma na celu przywrócenie doświadczenia serwisu YouTube™ z czasów, gdy był głównie poświęcony treściom wideo. Zatem: żadnych shortów, żadnych promptów. Nadal możesz oglądać shorty w dedykowanej dla nich sekcji, ale nie będą już wyświetlane poza nią. Wszystkie prompty niezwiązane bezpośrednio z filmami zostaną ukryte."},
   "extension_initialized": {"message": "[Old School YouTube]: Rozszerzenie uruchomione!"},
   "elements_hidden": {"message": "[Old School YouTube]: Zbędne elementy zostały ukryte!"}
 }

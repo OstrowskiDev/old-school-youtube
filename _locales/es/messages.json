@@ -1,5 +1,5 @@
 {
-  "extensionDescription": {"message": "Recupera el diseño inicial de YouTube, eliminando Cortos y solicitudes de contenido premium. Aún puedes ver Cortos en la sección 'youtube.com/shorts'."},
+  "extensionDescription": {"message": "Esta extensión tiene como objetivo recuperar la experiencia de YouTube™ de los días en que se centraba principalmente en contenido de vídeo. Entonces: sin cortos, sin indicaciones. Aún podrás ver cortos en sus respectivas páginas, pero ya no aparecerán en otras páginas. Se eliminarán todas las indicaciones que no estén directamente relacionadas con los videos."},
   "extension_initialized": {"message": "[Old School YouTube]: ¡Extensión inicializada!"},
   "elements_hidden": {"message": "[Old School YouTube]: ¡Se han ocultado elementos innecesarios!"}
 }
