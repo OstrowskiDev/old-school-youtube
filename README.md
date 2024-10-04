@@ -36,7 +36,7 @@ For chrome version [visit official Chrome extensions website](https://chromewebs
 ## How to use
 
 Just add this extension to your Firefox/Chrome browser:
-- Go to Old School YouTube extension site, links in Downloads section above.
+- Go to Old School YouTube™ extension site, links in Downloads section above.
 - Click "Add to Firefox/Chrome" button.
 - Enjoy!
 
