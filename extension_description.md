@@ -1,4 +1,4 @@
-Old School Experience YouTube™
+Old School Experience for YouTube™
 
 Brings back YouTube user experience from old days by removing shorts and prompts from YouTube pages.
 

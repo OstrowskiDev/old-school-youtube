@@ -15,7 +15,7 @@ function consoleTranslation(message, style = '') {
 }
 
 const logger = {
-  prefix: '[Old School YouTube] ',
+  prefix: '[Old School Experience for YouTube] ',
   log: function (...message) {
     if (environment === 'development') {
       console.log(this.prefix + message.join(' '))
