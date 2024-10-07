@@ -29,7 +29,7 @@ Currently this extension __supports only desktop__ devices.
 
 ## Downloads
 
-You can [visit official Mozilla extensions website](https://addons.mozilla.org/en-US/firefox/extensions/) to get the latest stable release for Firefox browser.
+You can [visit official Mozilla extension website](https://addons.mozilla.org/pl/firefox/addon/old-school-youtube/) to get the latest stable release for Firefox browser.
 
 For chrome version [visit official Chrome extensions website](https://chromewebstore.google.com/).
 
